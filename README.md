@@ -82,3 +82,11 @@ To add new components:
 1. Create a new class that inherits from `Component`
 2. Implement the required methods (`draw`, `update`)
 3. Add the component to the main loop
+
+## Example images
+- Look in assets/images folder
+![Dashboard Layout](assets/images/display_2.png)
+
+## Diagrams
+- Look in assets/documents folder
+![Architecture Diagram](assets/documents/architecture-diagram.svg)
