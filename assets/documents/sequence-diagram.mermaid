@@ -1,0 +1,39 @@
+sequenceDiagram
+    participant Main as Main Application
+    participant Event as Event Handler
+    participant CompMan as Component Manager
+    participant Comp as Component
+    participant Render as Renderer
+    participant Socket as Socket Interface
+    
+    %% Initialization
+    Main->>CompMan: Initialize Components
+    CompMan->>Comp: Create Component Instances
+    Comp-->>CompMan: Components Ready
+    Comp->>Socket: Start Socket Listeners (if needed)
+    CompMan-->>Main: Components Initialized
+    
+    %% Main Loop
+    loop Every Frame
+        Main->>Event: Process Events
+        Event-->>Main: Event Results
+        
+        alt If Simulation Mode
+            Main->>Comp: Update Component (Simulated Data)
+        else If External Data
+            Socket->>Comp: Receive Data
+            Comp->>Comp: Process Data
+        end
+        
+        Main->>Render: Prepare Render
+        Render->>Comp: Request Draw
+        Comp->>Comp: Render to Subsurface
+        Comp-->>Render: Draw Complete
+        Render-->>Main: Rendering Complete
+        
+        Main->>Main: Update Display
+    end
+    
+    %% Shutdown
+    Main->>Socket: Close Connections
+    Main->>CompMan: Cleanup Resources

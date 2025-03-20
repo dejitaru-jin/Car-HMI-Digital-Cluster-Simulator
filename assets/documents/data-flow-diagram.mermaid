@@ -1,0 +1,36 @@
+flowchart TD
+    %% Data sources
+    ExtData[External Data\nvia Socket] --> |Raw data| ProcData{Process\nData}
+    SimData[Simulation\nGenerator] --> |Simulated values| ProcData
+    
+    %% Component update and draw
+    ProcData --> |Set component\nproperties| CompUpdate[Component\nUpdate]
+    UserInput[User Input\nEvents] --> |Control signals| CompUpdate
+    CompUpdate --> |Updated state| CompDraw[Component\nRender]
+    CompDraw --> |Rendered output| Screen[Screen\nDisplay]
+    
+    %% Specific component examples
+    subgraph Component Lifecycle
+        RPMData[RPM Data] --> |Set RPM value| RPMGauge[RPM Gauge\nUpdate]
+        RPMGauge --> |Draw gauge| RPMView[RPM Gauge\nRender]
+        
+        SpeedData[Speed Data] --> |Set speed value| SpeedGauge[Speed Gauge\nUpdate]
+        SpeedGauge --> |Draw gauge| SpeedView[Speed Gauge\nRender]
+        
+        TimeData[Time Data] --> |Set time| ClockUpdate[Clock Widget\nUpdate]
+        ClockUpdate --> |Draw clock| ClockView[Clock Widget\nRender]
+    end
+    
+    %% Event handling
+    subgraph Event Handling
+        PygameEvent[Pygame Events] --> |Process| EventHandler[Event Handler]
+        EventHandler --> |Component events| CompUpdate
+        EventHandler --> |App control| AppState[Application State]
+    end
+    
+    %% Simulation engine
+    subgraph Simulation Engine
+        SimTimer[Timer] --> |Trigger| SimUpdate[Simulation\nUpdater]
+        SimRandom[Random\nGenerator] --> |Randomize values| SimUpdate
+        SimUpdate --> SimData
+    end
