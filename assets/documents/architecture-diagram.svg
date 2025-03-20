@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700">
+  <!-- Background -->
+  <rect width="1000" height="700" fill="#f8f8f8" rx="10" ry="10"/>
+  
+  <!-- Classes boxes -->
+  <!-- Component Base Class -->
+  <rect x="400" y="30" width="200" height="220" fill="#e1e1fa" stroke="#9b9bd5" stroke-width="2" rx="5" ry="5"/>
+  <text x="500" y="55" font-family="Arial" font-size="18" text-anchor="middle" fill="#333333" font-weight="bold">Component</text>
+  <line x1="400" y1="65" x2="600" y2="65" stroke="#9b9bd5" stroke-width="2"/>
+  
+  <!-- Component attributes -->
+  <text x="410" y="85" font-family="Arial" font-size="14" fill="#333333">+ region</text>
+  <text x="410" y="105" font-family="Arial" font-size="14" fill="#333333">+ name</text>
+  <text x="410" y="125" font-family="Arial" font-size="14" fill="#333333">+ width, height</text>
+  <text x="410" y="145" font-family="Arial" font-size="14" fill="#333333">+ center_x, center_y</text>
+  <text x="410" y="165" font-family="Arial" font-size="14" fill="#333333">+ data_lock</text>
+  <text x="410" y="185" font-family="Arial" font-size="14" fill="#333333">+ socket_thread</text>
+  <line x1="400" y1="195" x2="600" y2="195" stroke="#9b9bd5" stroke-width="1"/>
+  
+  <!-- Component methods -->
+  <text x="410" y="215" font-family="Arial" font-size="14" fill="#333333">+ __init__(region, name)</text>
+  <text x="410" y="235" font-family="Arial" font-size="14" fill="#333333">+ update(), draw(surface)</text>
+  
+  <!-- RPM Gauge -->
+  <rect x="120" y="300" width="160" height="160" fill="#d4e6f1" stroke="#5499c7" stroke-width="2" rx="5" ry="5"/>
+  <text x="200" y="325" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333" font-weight="bold">RPMGauge</text>
+  <line x1="120" y1="335" x2="280" y2="335" stroke="#5499c7" stroke-width="2"/>
+  
+  <!-- RPM attributes and methods -->
+  <text x="130" y="355" font-family="Arial" font-size="12" fill="#333333">+ rpm, max_rpm</text>
+  <text x="130" y="375" font-family="Arial" font-size="12" fill="#333333">+ radius, simulating</text>
+  <line x1="120" y1="385" x2="280" y2="385" stroke="#5499c7" stroke-width="1"/>
+  <text x="130" y="405" font-family="Arial" font-size="12" fill="#333333">+ update()</text>
+  <text x="130" y="425" font-family="Arial" font-size="12" fill="#333333">+ draw(surface)</text>
+  <text x="130" y="445" font-family="Arial" font-size="12" fill="#333333">+ start_simulation()</text>
+  
+  <!-- Speed Gauge -->
+  <rect x="300" y="300" width="160" height="160" fill="#d4e6f1" stroke="#5499c7" stroke-width="2" rx="5" ry="5"/>
+  <text x="380" y="325" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333" font-weight="bold">SpeedGauge</text>
+  <line x1="300" y1="335" x2="460" y2="335" stroke="#5499c7" stroke-width="2"/>
+  
+  <!-- Speed attributes and methods -->
+  <text x="310" y="355" font-family="Arial" font-size="12" fill="#333333">+ speed, max_speed</text>
+  <text x="310" y="375" font-family="Arial" font-size="12" fill="#333333">+ radius, target_speed</text>
+  <line x1="300" y1="385" x2="460" y2="385" stroke="#5499c7" stroke-width="1"/>
+  <text x="310" y="405" font-family="Arial" font-size="12" fill="#333333">+ update()</text>
+  <text x="310" y="425" font-family="Arial" font-size="12" fill="#333333">+ draw(surface)</text>
+  <text x="310" y="445" font-family="Arial" font-size="12" fill="#333333">+ start_simulation()</text>
+  
+  <!-- Fuel Gauge -->
+  <rect x="480" y="300" width="160" height="160" fill="#d4e6f1" stroke="#5499c7" stroke-width="2" rx="5" ry="5"/>
+  <text x="560" y="325" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333" font-weight="bold">FuelGauge</text>
+  <line x1="480" y1="335" x2="640" y2="335" stroke="#5499c7" stroke-width="2"/>
+  
+  <!-- Fuel attributes and methods -->
+  <text x="490" y="355" font-family="Arial" font-size="12" fill="#333333">+ fuel_level</text>
+  <text x="490" y="375" font-family="Arial" font-size="12" fill="#333333">+ radius, simulating</text>
+  <line x1="480" y1="385" x2="640" y2="385" stroke="#5499c7" stroke-width="1"/>
+  <text x="490" y="405" font-family="Arial" font-size="12" fill="#333333">+ update()</text>
+  <text x="490" y="425" font-family="Arial" font-size="12" fill="#333333">+ draw(surface)</text>
+  <text x="490" y="445" font-family="Arial" font-size="12" fill="#333333">+ start_simulation()</text>
+  
+  <!-- Clock Widget -->
+  <rect x="120" y="500" width="160" height="160" fill="#d5f5e3" stroke="#58d68d" stroke-width="2" rx="5" ry="5"/>
+  <text x="200" y="525" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333" font-weight="bold">ClockWidget</text>
+  <line x1="120" y1="535" x2="280" y2="535" stroke="#58d68d" stroke-width="2"/>
+  
+  <!-- Clock attributes and methods -->
+  <text x="130" y="555" font-family="Arial" font-size="12" fill="#333333">+ time, use_24h</text>
+  <text x="130" y="575" font-family="Arial" font-size="12" fill="#333333">+ simulating</text>
+  <line x1="120" y1="585" x2="280" y2="585" stroke="#58d68d" stroke-width="1"/>
+  <text x="130" y="605" font-family="Arial" font-size="12" fill="#333333">+ update()</text>
+  <text x="130" y="625" font-family="Arial" font-size="12" fill="#333333">+ draw(surface)</text>
+  <text x="130" y="645" font-family="Arial" font-size="12" fill="#333333">+ start_simulation()</text>
+  
+  <!-- Media Widget -->
+  <rect x="300" y="500" width="160" height="160" fill="#d5f5e3" stroke="#58d68d" stroke-width="2" rx="5" ry="5"/>
+  <text x="380" y="525" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333" font-weight="bold">MediaInfoWidget</text>
+  <line x1="300" y1="535" x2="460" y2="535" stroke="#58d68d" stroke-width="2"/>
+  
+  <!-- Media attributes and methods -->
+  <text x="310" y="555" font-family="Arial" font-size="12" fill="#333333">+ track_title, artist</text>
+  <text x="310" y="575" font-family="Arial" font-size="12" fill="#333333">+ position, duration</text>
+  <line x1="300" y1="585" x2="460" y2="585" stroke="#58d68d" stroke-width="1"/>
+  <text x="310" y="605" font-family="Arial" font-size="12" fill="#333333">+ update()</text>
+  <text x="310" y="625" font-family="Arial" font-size="12" fill="#333333">+ draw(surface)</text>
+  <text x="310" y="645" font-family="Arial" font-size="12" fill="#333333">+ _load_current_song()</text>
+  
+  <!-- Messages Widget -->
+  <rect x="480" y="500" width="160" height="160" fill="#d5f5e3" stroke="#58d68d" stroke-width="2" rx="5" ry="5"/>
+  <text x="560" y="525" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333" font-weight="bold">MessagesWidget</text>
+  <line x1="480" y1="535" x2="640" y2="535" stroke="#58d68d" stroke-width="2"/>
+  
+  <!-- Messages attributes and methods -->
+  <text x="490" y="555" font-family="Arial" font-size="12" fill="#333333">+ messages</text>
+  <text x="490" y="575" font-family="Arial" font-size="12" fill="#333333">+ max_messages</text>
+  <line x1="480" y1="585" x2="640" y2="585" stroke="#58d68d" stroke-width="1"/>
+  <text x="490" y="605" font-family="Arial" font-size="12" fill="#333333">+ add_message()</text>
+  <text x="490" y="625" font-family="Arial" font-size="12" fill="#333333">+ update()</text>
+  <text x="490" y="645" font-family="Arial" font-size="12" fill="#333333">+ draw(surface)</text>
+  
+  <!-- Main Application -->
+  <rect x="680" y="300" width="160" height="160" fill="#fadbd8" stroke="#e74c3c" stroke-width="2" rx="5" ry="5"/>
+  <text x="760" y="325" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333" font-weight="bold">Main</text>
+  <line x1="680" y1="335" x2="840" y2="335" stroke="#e74c3c" stroke-width="2"/>
+  
+  <!-- Main attributes and methods -->
+  <text x="690" y="355" font-family="Arial" font-size="12" fill="#333333">+ screen, clock</text>
+  <text x="690" y="375" font-family="Arial" font-size="12" fill="#333333">+ components</text>
+  <line x1="680" y1="385" x2="840" y2="385" stroke="#e74c3c" stroke-width="1"/>
+  <text x="690" y="405" font-family="Arial" font-size="12" fill="#333333">+ main()</text>
+  <text x="690" y="425" font-family="Arial" font-size="12" fill="#333333">+ handle_events()</text>
+  <text x="690" y="445" font-family="Arial" font-size="12" fill="#333333">+ update_display()</text>
+  
+  <!-- Inheritance arrows -->
+  <!-- RPM Gauge -->
+  <line x1="200" y1="300" x2="200" y2="270" stroke="#666666" stroke-width="2"/>
+  <line x1="200" y1="270" x2="500" y2="270" stroke="#666666" stroke-width="2"/>
+  <line x1="500" y1="270" x2="500" y2="250" stroke="#666666" stroke-width="2"/>
+  <polygon points="500,250 495,260 505,260" fill="#666666"/>
+  
+  <!-- Speed Gauge -->
+  <line x1="380" y1="300" x2="380" y2="270" stroke="#666666" stroke-width="2"/>
+  <line x1="380" y1="270" x2="500" y2="270" stroke="#666666" stroke-width="2"/>
+  <polygon points="500,250 495,260 505,260" fill="#666666"/>
+  
+  <!-- Fuel Gauge -->
+  <line x1="560" y1="300" x2="560" y2="270" stroke="#666666" stroke-width="2"/>
+  <line x1="560" y1="270" x2="500" y2="270" stroke="#666666" stroke-width="2"/>
+  <polygon points="500,250 495,260 505,260" fill="#666666"/>
+  
+  <!-- Clock Widget -->
+  <line x1="200" y1="500" x2="200" y2="470" stroke="#666666" stroke-width="2"/>
+  <line x1="200" y1="470" x2="330" y2="470" stroke="#666666" stroke-width="2"/>
+  <line x1="330" y1="470" x2="330" y2="270" stroke="#666666" stroke-width="2"/>
+  <line x1="330" y1="270" x2="500" y2="270" stroke="#666666" stroke-width="2"/>
+  <polygon points="500,250 495,260 505,260" fill="#666666"/>
+  
+  <!-- Media Widget -->
+  <line x1="380" y1="500" x2="380" y2="470" stroke="#666666" stroke-width="2"/>
+  <line x1="380" y1="470" x2="330" y2="470" stroke="#666666" stroke-width="2"/>
+  <polygon points="500,250 495,260 505,260" fill="#666666"/>
+  
+  <!-- Messages Widget -->
+  <line x1="560" y1="500" x2="560" y2="470" stroke="#666666" stroke-width="2"/>
+  <line x1="560" y1="470" x2="610" y2="470" stroke="#666666" stroke-width="2"/>
+  <line x1="610" y1="470" x2="610" y2="270" stroke="#666666" stroke-width="2"/>
+  <line x1="610" y1="270" x2="500" y2="270" stroke="#666666" stroke-width="2"/>
+  <polygon points="500,250 495,260 505,260" fill="#666666"/>
+  
+  <!-- Main using Components relationship -->
+  <line x1="760" y1="300" x2="760" y2="140" stroke="#666666" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="760" y1="140" x2="600" y2="140" stroke="#666666" stroke-width="2" stroke-dasharray="5,5"/>
+  <polygon points="600,140 610,135 610,145" fill="#666666"/>
+  
+  <!-- Legend -->
+  <rect x="800" y="500" width="180" height="100" fill="#ffffff" stroke="#666666" stroke-width="1" rx="5" ry="5"/>
+  <text x="890" y="520" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Legend</text>
+  
+  <rect x="810" y="530" width="20" height="15" fill="#e1e1fa" stroke="#9b9bd5" stroke-width="1"/>
+  <text x="840" y="543" font-family="Arial" font-size="12" text-anchor="start">Base Class</text>
+  
+  <rect x="810" y="555" width="20" height="15" fill="#d4e6f1" stroke="#5499c7" stroke-width="1"/>
+  <text x="840" y="568" font-family="Arial" font-size="12" text-anchor="start">Gauge Components</text>
+  
+  <rect x="810" y="580" width="20" height="15" fill="#d5f5e3" stroke="#58d68d" stroke-width="1"/>
+  <text x="840" y="593" font-family="Arial" font-size="12" text-anchor="start">Info Components</text>
+  
+  <line x1="810" y1="618" x2="830" y2="618" stroke="#666666" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="840" y="618" font-family="Arial" font-size="12" text-anchor="start">Uses</text>
+  
+  <line x1="810" y1="638" x2="830" y2="638" stroke="#666666" stroke-width="2"/>
+  <polygon points="830,638 825,633 825,643" fill="#666666"/>
+  <text x="840" y="638" font-family="Arial" font-size="12" text-anchor="start">Inherits</text>
+</svg>

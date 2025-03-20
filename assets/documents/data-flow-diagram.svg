@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700">
+  <!-- Background -->
+  <rect width="900" height="700" fill="#f8f8f8" rx="10" ry="10"/>
+  
+  <!-- Title -->
+  <text x="450" y="40" font-family="Arial" font-size="24" text-anchor="middle" fill="#333333" font-weight="bold">Car HMI Emulator - Data Flow Diagram</text>
+  
+  <!-- Main Data Flow -->
+  <!-- External Data Source -->
+  <rect x="100" y="100" width="160" height="80" fill="#e6f2ff" stroke="#4a86e8" stroke-width="2" rx="10" ry="10"/>
+  <text x="180" y="140" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333">External Data</text>
+  <text x="180" y="160" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">via Socket</text>
+  
+  <!-- Simulation Data Source -->
+  <rect x="100" y="230" width="160" height="80" fill="#fff2e6" stroke="#e8944a" stroke-width="2" rx="10" ry="10"/>
+  <text x="180" y="270" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333">Simulation</text>
+  <text x="180" y="290" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Generator</text>
+  
+  <!-- Process Data Step -->
+  <polygon points="350,190 400,150 450,190 400,230" fill="#e6ffe6" stroke="#4ae86a" stroke-width="2"/>
+  <text x="400" y="195" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333">Process</text>
+  <text x="400" y="215" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Data</text>
+  
+  <!-- Component Update -->
+  <rect x="550" y="150" width="160" height="80" fill="#f0e6ff" stroke="#9b4ae8" stroke-width="2" rx="10" ry="10"/>
+  <text x="630" y="190" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333">Component</text>
+  <text x="630" y="210" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Update</text>
+  
+  <!-- Component Render -->
+  <rect x="550" y="330" width="160" height="80" fill="#ffe6f0" stroke="#e84a9b" stroke-width="2" rx="10" ry="10"/>
+  <text x="630" y="370" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333">Component</text>
+  <text x="630" y="390" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Render</text>
+  
+  <!-- Screen Display -->
+  <rect x="550" y="510" width="160" height="80" fill="#e6ffff" stroke="#4ae8e8" stroke-width="2" rx="10" ry="10"/>
+  <text x="630" y="550" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333">Screen</text>
+  <text x="630" y="570" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Display</text>
+  
+  <!-- User Input -->
+  <rect x="320" y="330" width="160" height="80" fill="#ffffe6" stroke="#e8e84a" stroke-width="2" rx="10" ry="10"/>
+  <text x="400" y="370" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333">User Input</text>
+  <text x="400" y="390" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Events</text>
+  
+  <!-- Arrows -->
+  <!-- External Data to Process -->
+  <line x1="260" y1="140" x2="350" y2="190" stroke="#4a86e8" stroke-width="3"/>
+  <polygon points="350,190 340,183 342,197" fill="#4a86e8"/>
+  <text x="310" y="160" font-family="Arial" font-size="12" fill="#333333">Raw data</text>
+  
+  <!-- Simulation to Process -->
+  <line x1="260" y1="270" x2="350" y2="200" stroke="#e8944a" stroke-width="3"/>
+  <polygon points="350,200 339,207 345,193" fill="#e8944a"/>
+  <text x="310" y="245" font-family="Arial" font-size="12" fill="#333333">Simulated values</text>
+  
+  <!-- Process to Component Update -->
+  <line x1="450" y1="190" x2="550" y2="190" stroke="#4ae86a" stroke-width="3"/>
+  <polygon points="550,190 540,185 540,195" fill="#4ae86a"/>
+  <text x="500" y="175" font-family="Arial" font-size="12" fill="#333333">Set component</text>
+  <text x="500" y="190" font-family="Arial" font-size="12" fill="#333333">properties</text>
+  
+  <!-- User Input to Component Update -->
+  <line x1="400" y1="330" x2="550" y2="230" stroke="#e8e84a" stroke-width="3"/>
+  <polygon points="550,230 539,226 543,238" fill="#e8e84a"/>
+  <text x="440" y="290" font-family="Arial" font-size="12" fill="#333333">Control signals</text>
+  
+  <!-- Component Update to Component Render -->
+  <line x1="630" y1="230" x2="630" y2="330" stroke="#9b4ae8" stroke-width="3"/>
+  <polygon points="630,330 625,320 635,320" fill="#9b4ae8"/>
+  <text x="650" y="280" font-family="Arial" font-size="12" fill="#333333">Updated state</text>
+  
+  <!-- Component Render to Screen Display -->
+  <line x1="630" y1="410" x2="630" y2="510" stroke="#e84a9b" stroke-width="3"/>
+  <polygon points="630,510 625,500 635,500" fill="#e84a9b"/>
+  <text x="650" y="460" font-family="Arial" font-size="12" fill="#333333">Rendered output</text>
+  
+  <!-- Component Lifecycle Region -->
+  <rect x="60" y="450" width="450" height="200" fill="#ffffff" stroke="#666666" stroke-width="2" stroke-dasharray="5,5" rx="5" ry="5"/>
+  <text x="285" y="470" font-family="Arial" font-size="16" text-anchor="middle" fill="#333333" font-weight="bold">Component Lifecycle Example</text>
+  
+  <!-- RPM Data -->
+  <rect x="80" y="490" width="100" height="50" fill="#e6f2ff" stroke="#4a86e8" stroke-width="2" rx="5" ry="5"/>
+  <text x="130" y="520" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">RPM Data</text>
+  
+  <!-- RPM Gauge Update -->
+  <rect x="240" y="490" width="100" height="50" fill="#f0e6ff" stroke="#9b4ae8" stroke-width="2" rx="5" ry="5"/>
+  <text x="290" y="510" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">RPM Gauge</text>
+  <text x="290" y="530" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Update</text>
+  
+  <!-- RPM Gauge Render -->
+  <rect x="390" y="490" width="100" height="50" fill="#ffe6f0" stroke="#e84a9b" stroke-width="2" rx="5" ry="5"/>
+  <text x="440" y="510" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">RPM Gauge</text>
+  <text x="440" y="530" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Render</text>
+  
+  <!-- Speed Data -->
+  <rect x="80" y="550" width="100" height="50" fill="#e6f2ff" stroke="#4a86e8" stroke-width="2" rx="5" ry="5"/>
+  <text x="130" y="580" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Speed Data</text>
+  
+  <!-- Speed Gauge Update -->
+  <rect x="240" y="550" width="100" height="50" fill="#f0e6ff" stroke="#9b4ae8" stroke-width="2" rx="5" ry="5"/>
+  <text x="290" y="570" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Speed Gauge</text>
+  <text x="290" y="590" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Update</text>
+  
+  <!-- Speed Gauge Render -->
+  <rect x="390" y="550" width="100" height="50" fill="#ffe6f0" stroke="#e84a9b" stroke-width="2" rx="5" ry="5"/>
+  <text x="440" y="570" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Speed Gauge</text>
+  <text x="440" y="590" font-family="Arial" font-size="14" text-anchor="middle" fill="#333333">Render</text>
+  
+  <!-- Arrows in Component Lifecycle -->
+  <line x1="180" y1="515" x2="240" y2="515" stroke="#4a86e8" stroke-width="2"/>
+  <polygon points="240,515 230,510 230,520" fill="#4a86e8"/>
+  <text x="210" y="505" font-family="Arial" font-size="10" fill="#333333">Set RPM value</text>
+  
+  <line x1="340" y1="515" x2="390" y2="515" stroke="#9b4ae8" stroke-width="2"/>
+  <polygon points="390,515 380,510 380,520" fill="#9b4ae8"/>
+  <text x="365" y="505" font-family="Arial" font-size="10" fill="#333333">Draw gauge</text>
+  
+  <line x1="180" y1="575" x2="240" y2="575" stroke="#4a86e8" stroke-width="2"/>
+  <polygon points="240,575 230,570 230,580" fill="#4a86e8"/>
+  <text x="210" y="565" font-family="Arial" font-size="10" fill="#333333">Set speed value</text>
+  
+  <line x1="340" y1="575" x2="390" y2="575" stroke="#9b4ae8" stroke-width="2"/>
+  <polygon points="390,575 380,570 380,580" fill="#9b4ae8"/>
+  <text x="365" y="565" font-family="Arial" font-size="10" fill="#333333">Draw gauge</text>
+  
+  <!-- Legend -->
+  <rect x="730" y="510" width="150" height="150" fill="#ffffff" stroke="#666666" stroke-width="1" rx="5" ry="5"/>
+  <text x="805" y="530" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Legend</text>
+  
+  <rect x="740" y="540" width="20" height="15" fill="#e6f2ff" stroke="#4a86e8" stroke-width="1"/>
+  <text x="765" y="553" font-family="Arial" font-size="12" text-anchor="start">External Data</text>
+  
+  <rect x="740" y="565" width="20" height="15" fill="#fff2e6" stroke="#e8944a" stroke-width="1"/>
+  <text x="765" y="578" font-family="Arial" font-size="12" text-anchor="start">Simulation</text>
+  
+  <rect x="740" y="590" width="20" height="15" fill="#f0e6ff" stroke="#9b4ae8" stroke-width="1"/>
+  <text x="765" y="603" font-family="Arial" font-size="12" text-anchor="start">Processing</text>
+  
+  <rect x="740" y="615" width="20" height="15" fill="#ffe6f0" stroke="#e84a9b" stroke-width="1"/>
+  <text x="765" y="628" font-family="Arial" font-size="12" text-anchor="start">Rendering</text>
+  
+  <polygon points="740,645 750,640 760,645 750,650" fill="#e6ffe6" stroke="#4ae86a" stroke-width="1"/>
+  <text x="765" y="653" font-family="Arial" font-size="12" text-anchor="start">Transformation</text>
+</svg>
