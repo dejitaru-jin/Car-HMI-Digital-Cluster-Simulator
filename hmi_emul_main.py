@@ -39,9 +39,9 @@ class Component:
         self.y = region[1]
         self.width = region[2]
         self.height = region[3]
-        self.center_x = self.x + self.width // 2
-        self.center_y = self.y + self.height // 2
-        
+        self.center_x = self.width // 2
+        self.center_y = self.height // 2
+
         # Socket for receiving data
         self.socket_thread = None
         self.data_lock = threading.Lock()
@@ -49,14 +49,14 @@ class Component:
     def draw_component_background(self, surface):
         # Draw component background with border
         pygame.draw.rect(surface, (30, 30, 40), 
-                        (self.x, self.y, self.width, self.height))
+                        (0, 0, self.width, self.height))
         pygame.draw.rect(surface, (100, 100, 120), 
-                        (self.x, self.y, self.width, self.height), 2)
+                        (0, 0, self.width, self.height), 2)
         
         # Draw component title
         font = pygame.font.SysFont('Arial', 18)
         title = font.render(self.name, True, (180, 180, 200))
-        title_rect = title.get_rect(midtop=(self.center_x, self.y + 10))
+        title_rect = title.get_rect(midtop=(self.center_x, 10))
         surface.blit(title, title_rect)
     
     def update(self):
@@ -610,8 +610,8 @@ class MediaInfoWidget(Component):
         # Draw media player
         player_width = self.width - 40
         player_height = self.height - 80
-        player_x = self.x + 20
-        player_y = self.y + 40
+        player_x = 20
+        player_y = 40
         
         # Background
         pygame.draw.rect(surface, (30, 30, 40), 
@@ -756,8 +756,8 @@ class MessagesWidget(Component):
         # Draw message panel
         panel_width = self.width - 40
         panel_height = self.height - 80
-        panel_x = self.x + 20
-        panel_y = self.y + 40
+        panel_x = 20
+        panel_y = 40
         
         # Background
         pygame.draw.rect(surface, (30, 30, 40), 
@@ -844,9 +844,11 @@ while running:
     for y in range(0, SCREEN_HEIGHT, SCREEN_HEIGHT // 2):
         pygame.draw.line(screen, (40, 40, 60), (0, y), (SCREEN_WIDTH, y), 2)
     
-    # Draw components
-    for component in components.values():
-        component.draw(screen)
+    # Draw components using subsurfaces
+    for name, component in components.items():
+        region = regions[name]
+        subsurface = screen.subsurface(pygame.Rect(region))
+        component.draw(subsurface)
     
     # Update display
     pygame.display.flip()
