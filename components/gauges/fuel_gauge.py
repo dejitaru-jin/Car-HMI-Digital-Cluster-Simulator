@@ -26,7 +26,10 @@ class FuelGauge(Component):
             self.fuel_level -= 0.02
             if self.fuel_level < 0:
                 self.fuel_level = 100
-    
+
+    def cleanup(self):
+        self.simulating = False
+        
     def draw(self, surface):
         super().draw(surface)
         

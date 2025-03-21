@@ -65,6 +65,8 @@ def main():
         pygame.display.flip()
         clock.tick(60)
 
+    for component in components.values():
+        component.cleanup()
     pygame.quit()
     sys.exit()
 
