@@ -1,160 +1,261 @@
 import pygame
-import random
+import json
 from core.component import Component
+from components.platform.data_source import DataSource
 
 class MediaInfoWidget(Component):
-    def __init__(self, region):
+    def __init__(self, region, port=5005):
+        """Initialize the media info widget component.
+        
+        Args:
+            region (tuple): The (x, y, width, height) region for this component
+            port (int): The port number for the data source connection
+        """
         super().__init__(region, "Media")
-        self.track_title = "No Track"
-        self.artist = "No Artist"
-        self.album = "No Album"
-        self.duration = 0  # seconds
-        self.position = 0  # seconds
-        self.is_playing = False
         
-        # For simulation
-        self.simulating = False
-        self.songs = [
-            {"title": "Bohemian Rhapsody", "artist": "Queen", "album": "A Night at the Opera", "duration": 355},
-            {"title": "Imagine", "artist": "John Lennon", "album": "Imagine", "duration": 183},
-            {"title": "Sweet Child O' Mine", "artist": "Guns N' Roses", "album": "Appetite for Destruction", "duration": 355},
-            {"title": "Billie Jean", "artist": "Michael Jackson", "album": "Thriller", "duration": 294},
-            {"title": "Smells Like Teen Spirit", "artist": "Nirvana", "album": "Nevermind", "duration": 301},
-        ]
-        self.current_song_index = 0
+        # Initialize media data
+        self.title = "No track"
+        self.artist = "No artist"
+        self.album = "No album"
+        self.duration = 0
+        self.position = 0
+        self.progress = 0
+        self.playing = False
+        self.repeat_mode = "off"
+        self.shuffle_mode = False
+        self.volume = 70
         
+        # Setup data source
+        self.data_source = DataSource(port=port)
+        self.data_source.set_data_callback(self._process_data)
+    
     def _process_data(self, data):
+        """Process received media data.
+        
+        Args:
+            data (bytes): The received media data
+        """
         try:
-            media_info = data.decode().split('|')
-            if len(media_info) >= 5:
-                self.track_title = media_info[0]
-                self.artist = media_info[1]
-                self.album = media_info[2]
-                self.duration = int(media_info[3])
-                self.position = int(media_info[4])
-                self.is_playing = media_info[5].lower() == 'true' if len(media_info) > 5 else False
+            media_data = json.loads(data.decode())
+            self.title = media_data.get("title", "No track")
+            self.artist = media_data.get("artist", "No artist")
+            self.album = media_data.get("album", "No album")
+            self.duration = media_data.get("duration", 0)
+            self.position = media_data.get("position", 0)
+            self.progress = media_data.get("progress", 0)
+            self.playing = media_data.get("playing", False)
+            self.repeat_mode = media_data.get("repeat_mode", "off")
+            self.shuffle_mode = media_data.get("shuffle_mode", False)
+            self.volume = media_data.get("volume", 70)
         except Exception as e:
             print(f"Media data processing error: {e}")
     
-    def start_simulation(self):
-        self.simulating = True
-        self._load_current_song()
-        self.is_playing = True
-        
-    def _load_current_song(self):
-        song = self.songs[self.current_song_index]
-        self.track_title = song["title"]
-        self.artist = song["artist"]
-        self.album = song["album"]
-        self.duration = song["duration"]
-        self.position = 0
-
-    def cleanup(self):
-        self.simulating = False
-            
+    def connect(self):
+        """Connect to the data source and start receiving data."""
+        self.data_source.start()
+    
+    def disconnect(self):
+        """Disconnect from the data source."""
+        self.data_source.stop()
+    
     def update(self):
-        if self.simulating and self.is_playing:
-            # Update position
-            self.position += 1
-            
-            # Change song when finished
-            if self.position >= self.duration:
-                self.current_song_index = (self.current_song_index + 1) % len(self.songs)
-                self._load_current_song()
-                
-            # Randomly pause or play
-            if random.random() < 0.001:
-                self.is_playing = not self.is_playing
+        """Update the component state (called each frame)."""
+        # Now handled by the data source
+        pass
     
     def draw(self, surface):
+        """Draw the media widget on the given surface.
+        
+        Args:
+            surface (pygame.Surface): The surface to draw on
+        """
         super().draw(surface)
         
-        # Draw media player
-        player_width = self.width - 40
-        player_height = self.height - 80
-        player_x = 20
-        player_y = 40
-        
         # Background
-        pygame.draw.rect(surface, (30, 30, 40), 
-                        (player_x, player_y, player_width, player_height))
-        pygame.draw.rect(surface, (70, 70, 90), 
-                        (player_x, player_y, player_width, player_height), 
-                        1)
+        background_rect = pygame.Rect(10, 10, self.width - 20, self.height - 20)
+        pygame.draw.rect(surface, (40, 40, 50), background_rect, border_radius=10)
         
-        # Track information
-        font_title = pygame.font.SysFont('Arial', 22, bold=True)
-        font_info = pygame.font.SysFont('Arial', 18)
+        # Media icon at top left
+        icon_rect = pygame.Rect(25, 25, 30, 30)
+        pygame.draw.rect(surface, (80, 80, 100), icon_rect, border_radius=5)
         
-        # Title
-        title_text = font_title.render(self.track_title, True, (230, 230, 255))
-        title_rect = title_text.get_rect(midtop=(self.center_x, player_y + 20))
-        surface.blit(title_text, title_rect)
+        # Draw music note icon
+        note_x, note_y = 30, 30
+        # Stem
+        pygame.draw.line(surface, (200, 200, 220), 
+                        (note_x + 15, note_y), 
+                        (note_x + 15, note_y + 20), 
+                        2)
+        # Note head
+        pygame.draw.ellipse(surface, (200, 200, 220), 
+                           (note_x + 8, note_y + 17, 14, 10))
         
-        # Artist & Album
-        artist_text = font_info.render(f"{self.artist} - {self.album}", True, (200, 200, 220))
-        artist_rect = artist_text.get_rect(midtop=(self.center_x, player_y + 50))
-        surface.blit(artist_text, artist_rect)
+        # Media title
+        title_font = pygame.font.SysFont('Arial', 22, bold=True)
+        title_text = title_font.render(self._truncate_text(self.title, 18), 
+                                     True, (240, 240, 255))
+        surface.blit(title_text, (70, 25))
+        
+        # Artist and album
+        info_font = pygame.font.SysFont('Arial', 16)
+        artist_text = info_font.render(self._truncate_text(self.artist, 22), 
+                                      True, (200, 200, 210))
+        surface.blit(artist_text, (70, 50))
+        
+        album_text = info_font.render(self._truncate_text(f"Album: {self.album}", 25), 
+                                     True, (180, 180, 190))
+        surface.blit(album_text, (25, 80))
         
         # Progress bar
-        progress_width = player_width - 40
-        progress_height = 10
-        progress_x = player_x + 20
-        progress_y = player_y + 90
+        progress_bar_rect = pygame.Rect(25, 110, self.width - 50, 15)
+        pygame.draw.rect(surface, (60, 60, 70), progress_bar_rect, border_radius=3)
         
-        # Background track
-        pygame.draw.rect(surface, (50, 50, 60), 
-                        (progress_x, progress_y, progress_width, progress_height))
-        
-        # Progress fill
+        # Fill progress bar based on current position
         if self.duration > 0:
-            fill_width = int((self.position / self.duration) * progress_width)
-            pygame.draw.rect(surface, (100, 100, 255), 
-                            (progress_x, progress_y, fill_width, progress_height))
+            fill_width = int((self.progress / 100) * (self.width - 50))
+            progress_fill_rect = pygame.Rect(25, 110, fill_width, 15)
+            
+            # Color based on playing status
+            if self.playing:
+                fill_color = (0, 120, 255)  # Blue when playing
+            else:
+                fill_color = (100, 100, 120)  # Gray when paused
+                
+            pygame.draw.rect(surface, fill_color, progress_fill_rect, border_radius=3)
         
-        # Time info
-        position_min = self.position // 60
-        position_sec = self.position % 60
-        duration_min = self.duration // 60
-        duration_sec = self.duration % 60
-        
-        time_text = font_info.render(f"{position_min:02d}:{position_sec:02d} / {duration_min:02d}:{duration_sec:02d}", 
-                                   True, (200, 200, 220))
-        time_rect = time_text.get_rect(midtop=(self.center_x, progress_y + 20))
+        # Time display
+        time_font = pygame.font.SysFont('Arial', 14)
+        position_str = self._format_time(self.position)
+        duration_str = self._format_time(self.duration)
+        time_text = time_font.render(f"{position_str} / {duration_str}", 
+                                   True, (190, 190, 200))
+        time_rect = time_text.get_rect(center=(self.center_x, 135))
         surface.blit(time_text, time_rect)
         
         # Control buttons
-        button_y = progress_y + 50
+        button_y = 160
         button_radius = 15
-        spacing = 40
         
         # Previous button
-        prev_x = self.center_x - spacing
-        pygame.draw.circle(surface, (70, 70, 90), (prev_x, button_y), button_radius)
-        pygame.draw.polygon(surface, (200, 200, 220), 
-                          [(prev_x + 5, button_y), (prev_x - 5, button_y - 8), (prev_x - 5, button_y + 8)])
-        pygame.draw.line(surface, (200, 200, 220), 
-                        (prev_x - 6, button_y - 8), (prev_x - 6, button_y + 8), 2)
+        prev_x = self.center_x - 60
+        pygame.draw.circle(surface, (70, 70, 80), (prev_x, button_y), button_radius)
+        # Previous icon (double triangle)
+        pygame.draw.polygon(surface, (220, 220, 230), 
+                          [(prev_x - 5, button_y), 
+                           (prev_x - 5, button_y - 8),
+                           (prev_x - 12, button_y)])
+        pygame.draw.polygon(surface, (220, 220, 230), 
+                          [(prev_x + 5, button_y), 
+                           (prev_x + 5, button_y - 8),
+                           (prev_x - 2, button_y)])
         
         # Play/Pause button
         play_x = self.center_x
-        pygame.draw.circle(surface, (70, 70, 90), (play_x, button_y), button_radius)
+        pygame.draw.circle(surface, (70, 70, 80), (play_x, button_y), button_radius + 5)
         
-        if self.is_playing:
-            # Pause icon
-            pygame.draw.line(surface, (200, 200, 220), 
-                            (play_x - 4, button_y - 6), (play_x - 4, button_y + 6), 3)
-            pygame.draw.line(surface, (200, 200, 220), 
-                            (play_x + 4, button_y - 6), (play_x + 4, button_y + 6), 3)
+        if self.playing:
+            # Pause icon (two bars)
+            pygame.draw.rect(surface, (220, 220, 230), 
+                            (play_x - 7, button_y - 8, 5, 16))
+            pygame.draw.rect(surface, (220, 220, 230), 
+                            (play_x + 2, button_y - 8, 5, 16))
         else:
-            # Play icon
-            pygame.draw.polygon(surface, (200, 200, 220), 
-                              [(play_x - 5, button_y - 8), (play_x + 7, button_y), (play_x - 5, button_y + 8)])
+            # Play icon (triangle)
+            pygame.draw.polygon(surface, (220, 220, 230), 
+                              [(play_x - 5, button_y - 8), 
+                               (play_x - 5, button_y + 8),
+                               (play_x + 8, button_y)])
         
         # Next button
-        next_x = self.center_x + spacing
-        pygame.draw.circle(surface, (70, 70, 90), (next_x, button_y), button_radius)
-        pygame.draw.polygon(surface, (200, 200, 220), 
-                          [(next_x - 5, button_y), (next_x + 5, button_y - 8), (next_x + 5, button_y + 8)])
-        pygame.draw.line(surface, (200, 200, 220), 
-                        (next_x + 6, button_y - 8), (next_x + 6, button_y + 8), 2)
+        next_x = self.center_x + 60
+        pygame.draw.circle(surface, (70, 70, 80), (next_x, button_y), button_radius)
+        # Next icon (double triangle)
+        pygame.draw.polygon(surface, (220, 220, 230), 
+                          [(next_x + 5, button_y), 
+                           (next_x + 5, button_y - 8),
+                           (next_x + 12, button_y)])
+        pygame.draw.polygon(surface, (220, 220, 230), 
+                          [(next_x - 5, button_y), 
+                           (next_x - 5, button_y - 8),
+                           (next_x + 2, button_y)])
+        
+        # Shuffle and repeat indicators
+        indicator_y = 190
+        indicator_font = pygame.font.SysFont('Arial', 14)
+        
+        # Shuffle
+        shuffle_color = (0, 255, 0) if self.shuffle_mode else (150, 150, 160)
+        shuffle_text = indicator_font.render("SHUFFLE", True, shuffle_color)
+        surface.blit(shuffle_text, (self.center_x - 70, indicator_y))
+        
+        # Repeat
+        if self.repeat_mode == "off":
+            repeat_color = (150, 150, 160)
+            repeat_text = "REPEAT"
+        elif self.repeat_mode == "single":
+            repeat_color = (0, 255, 0)
+            repeat_text = "REPEAT ONE"
+        else:  # repeat all
+            repeat_color = (0, 255, 0)
+            repeat_text = "REPEAT ALL"
+            
+        repeat_label = indicator_font.render(repeat_text, True, repeat_color)
+        surface.blit(repeat_label, (self.center_x + 10, indicator_y))
+        
+        # Volume indicator
+        volume_y = 220
+        volume_width = 150
+        volume_height = 8
+        
+        # Volume bar background
+        volume_bg_rect = pygame.Rect(
+            self.center_x - volume_width // 2, 
+            volume_y, 
+            volume_width, 
+            volume_height
+        )
+        pygame.draw.rect(surface, (60, 60, 70), volume_bg_rect, border_radius=2)
+        
+        # Volume bar fill
+        volume_fill_width = int((self.volume / 100) * volume_width)
+        volume_fill_rect = pygame.Rect(
+            self.center_x - volume_width // 2, 
+            volume_y, 
+            volume_fill_width, 
+            volume_height
+        )
+        pygame.draw.rect(surface, (0, 180, 0), volume_fill_rect, border_radius=2)
+        
+        # Volume label
+        volume_label = indicator_font.render(f"VOL: {self.volume}%", 
+                                          True, (190, 190, 200))
+        volume_label_rect = volume_label.get_rect(
+            center=(self.center_x, volume_y + 20)
+        )
+        surface.blit(volume_label, volume_label_rect)
+    
+    def _truncate_text(self, text, max_chars):
+        """Truncate text to maximum character length.
+        
+        Args:
+            text (str): Text to truncate
+            max_chars (int): Maximum characters
+            
+        Returns:
+            str: Truncated text
+        """
+        if len(text) > max_chars:
+            return text[:max_chars - 3] + "..."
+        return text
+    
+    def _format_time(self, seconds):
+        """Format seconds as mm:ss string.
+        
+        Args:
+            seconds (int): Time in seconds
+            
+        Returns:
+            str: Formatted time string
+        """
+        minutes, seconds = divmod(int(seconds), 60)
+        return f"{minutes}:{seconds:02}"
