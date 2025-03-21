@@ -19,3 +19,7 @@ gitlog:
 
 run:
 	${SILENT}python main.py
+
+# Show directory structure including files using Windows tree command
+showtree:
+	${SILENT}cmd /c tree /F .

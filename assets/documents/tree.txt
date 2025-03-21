@@ -1,0 +1,64 @@
+C:\DEV\HMI-emulator>
+│   .gitignore
+│   LICENSE
+│   main.py
+│   Makefile
+│   README.md
+│
+├───assets
+│   ├───documents
+│   │       architecture-diagram.mmd
+│   │       architecture-diagram.svg
+│   │       component-interaction.mmd
+│   │       component-interaction.svg
+│   │       dashboard-svg.svg
+│   │       data-flow-diagram.mmd
+│   │       data-flow-diagram.svg
+│   │       design-document.md
+│   │       hmi-sequence-diagram.svg
+│   │       sequence-diagram.mmd
+│   │
+│   ├───fonts
+│   └───images
+│           display_1.png
+│           display_2.png
+│
+├───components
+│   │   __init__.py
+│   │
+│   ├───future_components
+│   │       __init__.py
+│   │
+│   ├───gauges
+│   │       fuel_gauge.py
+│   │       rpm_gauge.py
+│   │       speed_gauge.py
+│   │       __init__.py
+│   │
+│   ├───info
+│   │       clock_widget.py
+│   │       media_widget.py
+│   │       messages_widget.py
+│   │       __init__.py
+│   │
+│   └───platform
+│       │   data_source.py
+│       │   __init__.py
+│       │
+│       └───emul
+│               clock_emulator.py
+│               data_emulator_base.py
+│               fuel_emulator.py
+│               media_emulator.py
+│               messages_emulator.py
+│               rpm_emulator.py
+│               speed_emulator.py
+│               __init__.py
+│
+└───core
+        component.py
+        constants.py
+        utils.py
+        __init__.py
+
+
