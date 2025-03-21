@@ -16,3 +16,6 @@ info:
 # Show formatted git log with custom format and colors
 gitlog:
 	${SILENT}git log --pretty=format:"%C(yellow)[%h]%C(green)[%cd]%C(blue)[%D]%C(red)[%an]%C(reset)[%s]" --date=short
+
+run:
+	${SILENT}python main.py
