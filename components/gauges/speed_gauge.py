@@ -34,6 +34,9 @@ class SpeedGauge(Component):
                 self.speed += min(2.0, self.target_speed - self.speed)
             elif self.speed > self.target_speed:
                 self.speed -= min(1.5, self.speed - self.target_speed)
+
+    def cleanup(self):
+        self.simulating = False
     
     def draw(self, surface):
         super().draw(surface)

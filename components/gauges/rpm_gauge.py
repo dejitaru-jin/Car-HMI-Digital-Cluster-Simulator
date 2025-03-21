@@ -1,39 +1,73 @@
 import pygame
 import math
-import random
 from core.component import Component
+from components.platform.data_source import DataSource
+from components.platform.emul.rpm_emulator import RPMEmulator
 
 class RPMGauge(Component):
-    def __init__(self, region):
+    def __init__(self, region, port=5001):
+        """Initialize the RPM gauge component.
+        
+        Args:
+            region (tuple): The (x, y, width, height) region for this component
+            port (int): The port number for the data source connection
+        """
         super().__init__(region, "RPM")
         self.rpm = 0
         self.max_rpm = 8000
         self.radius = min(self.width, self.height) // 2 - 40
         
+        # Setup data source
+        self.data_source = DataSource(port=port)
+        self.data_source.set_data_callback(self._process_data)
+        
         # For simulation
         self.simulating = False
-        
+
+        self.rpm_emulator = None
+
+    def start_simulation(self):
+        self.simulating = False
+        self.rpm_emulator = RPMEmulator(port=5001)
+        self.rpm_emulator.start()
+        self.connect()
+
+
     def _process_data(self, data):
+        """Process received RPM data.
+        
+        Args:
+            data (bytes): The received RPM data
+        """
         try:
             self.rpm = int(data.decode())
         except Exception as e:
             print(f"RPM data processing error: {e}")
     
-    def start_simulation(self):
-        self.simulating = True
-        
-    def update(self):
-        if self.simulating:
-            # Simple simulation: RPM increases/decreases like an engine
-            if random.random() < 0.5:
-                self.rpm += random.randint(50, 200)
-            else:
-                self.rpm -= random.randint(50, 150)
-            
-            # Keep within bounds
-            self.rpm = max(800, min(self.rpm, self.max_rpm))
+    def connect(self):
+        """Connect to the data source and start receiving data."""
+        self.data_source.start()
     
+    def disconnect(self):
+        """Disconnect from the data source."""
+        self.data_source.stop()
+    
+    def update(self):
+        """Update the component state (called each frame)."""
+        # Now handled by the data source
+        pass
+    
+    def cleanup(self):
+        self.simulating = False
+        self.disconnect()
+        self.rpm_emulator.stop()
+
     def draw(self, surface):
+        """Draw the RPM gauge on the given surface.
+        
+        Args:
+            surface (pygame.Surface): The surface to draw on
+        """
         super().draw(surface)
         
         # Draw gauge background

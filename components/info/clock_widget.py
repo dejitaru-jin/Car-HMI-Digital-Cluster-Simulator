@@ -28,7 +28,10 @@ class ClockWidget(Component):
         if self.simulating:
             # Update time
             self.time = datetime.now()
-        
+
+    def cleanup(self):
+        self.simulating = False
+            
     def draw(self, surface):
         super().draw(surface)
         

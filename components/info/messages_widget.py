@@ -43,7 +43,10 @@ class MessagesWidget(Component):
     
     def start_simulation(self):
         self.simulating = True
-        
+
+    def cleanup(self):
+        self.simulating = False
+            
     def update(self):
         if self.simulating:
             # Add a random message every 5 seconds or so

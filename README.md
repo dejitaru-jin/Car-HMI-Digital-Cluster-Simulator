@@ -39,6 +39,7 @@ car_hmi_emulator/
 │       └── messages_widget.py
 │
 └── assets/                  # Assets (if needed in the future)
+    ├── documents/
     ├── fonts/
     └── images/
 ```

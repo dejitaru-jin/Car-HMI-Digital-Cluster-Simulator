@@ -48,7 +48,10 @@ class MediaInfoWidget(Component):
         self.album = song["album"]
         self.duration = song["duration"]
         self.position = 0
-        
+
+    def cleanup(self):
+        self.simulating = False
+            
     def update(self):
         if self.simulating and self.is_playing:
             # Update position
