@@ -1,5 +1,6 @@
 import random
 from .data_emulator_base import DataEmulatorBase
+from core.constants import *
 
 class FuelEmulator(DataEmulatorBase):
     """Emulator for fuel level data.
@@ -7,7 +8,7 @@ class FuelEmulator(DataEmulatorBase):
     Generates realistic fuel level values that decrease over time
     with occasional refill events.
     """
-    def __init__(self, port=5003, update_interval=1.0):
+    def __init__(self, port=FUEL_GAUGE_PORT, update_interval=1.0):
         """Initialize the fuel data emulator.
         
         Args:
@@ -64,6 +65,11 @@ class FuelEmulator(DataEmulatorBase):
         Returns:
             float: The current fuel level as a percentage
         """
+
+        print(f"Fuel generating data")
+        if self.fuel_state == 'consuming':
+            print(f"Fuel generating data: consuming")
+
         # Random chance to switch to refill state if low
         if (self.fuel_state == 'consuming' and 
             self.fuel_level < 15.0 and 
@@ -79,6 +85,7 @@ class FuelEmulator(DataEmulatorBase):
         if self.fuel_state == 'consuming':
             # Reduce fuel level
             self.fuel_level -= self._calculate_consumption()
+            print(f"Fuel generating data: {self.fuel_level}")
             
             # Ensure not negative
             self.fuel_level = max(0, self.fuel_level)
@@ -93,4 +100,5 @@ class FuelEmulator(DataEmulatorBase):
                 self.fuel_state = 'consuming'
         
         # Return current level rounded to one decimal place
+        print(f"Fuel generating data. fuel_level: {round(self.fuel_level, 1)}")
         return round(self.fuel_level, 1)

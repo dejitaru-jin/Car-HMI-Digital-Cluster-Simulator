@@ -4,9 +4,10 @@ import json
 from datetime import datetime
 from core.component import Component
 from components.platform.data_source import DataSource
+from core.constants import *
 
 class ClockWidget(Component):
-    def __init__(self, region, port=5004):
+    def __init__(self, region, port=CLOCK_PORT):
         """Initialize the clock widget component.
         
         Args:
@@ -24,7 +25,7 @@ class ClockWidget(Component):
         
         # Clock display settings
         self.show_analog = True
-        self.show_digital = True
+        self.show_digital = False
         self.show_date = True
         self.radius = min(self.width, self.height) // 2 - 40
         
@@ -64,7 +65,12 @@ class ClockWidget(Component):
     def toggle_analog(self):
         """Toggle the analog clock display."""
         self.show_analog = not self.show_analog
-    
+
+    def send_key(self, key):
+        print(f"Received key:{key}")
+        if key == pygame.K_w:
+            self.toggle_digital()
+
     def toggle_digital(self):
         """Toggle the digital clock display."""
         self.show_digital = not self.show_digital
@@ -106,18 +112,18 @@ class ClockWidget(Component):
         # Clock position and size
         if self.show_digital:
             # Smaller clock if showing digital too
-            clock_y = self.center_y - 20
-            radius = min(self.radius, 60)
+            clock_y = self.center_y - 50
+            radius = min(self.radius, 90)
         else:
             # Larger clock if only analog
-            clock_y = self.center_y
+            clock_y = self.center_y+20
             radius = self.radius
             
         # Draw clock face
-        pygame.draw.circle(surface, (50, 50, 60), 
+        pygame.draw.circle(surface, CLOCK_BACKGROUND_COLOR, 
                           (self.center_x, clock_y), 
                           radius)
-        pygame.draw.circle(surface, (210, 210, 220), 
+        pygame.draw.circle(surface, CLOCK_OUTLINE_COLOR, 
                           (self.center_x, clock_y), 
                           radius, 2)
         
@@ -138,7 +144,7 @@ class ClockWidget(Component):
         hour_angle = (self.hour % 12 + self.minute / 60) * math.pi / 6 - math.pi / 2
         hour_x = self.center_x + radius * 0.5 * math.cos(hour_angle)
         hour_y = clock_y + radius * 0.5 * math.sin(hour_angle)
-        pygame.draw.line(surface, (255, 255, 255), 
+        pygame.draw.line(surface, WHITE, 
                         (self.center_x, clock_y), 
                         (int(hour_x), int(hour_y)), 
                         4)
@@ -147,7 +153,7 @@ class ClockWidget(Component):
         minute_angle = (self.minute + self.second / 60) * math.pi / 30 - math.pi / 2
         minute_x = self.center_x + radius * 0.7 * math.cos(minute_angle)
         minute_y = clock_y + radius * 0.7 * math.sin(minute_angle)
-        pygame.draw.line(surface, (255, 255, 255), 
+        pygame.draw.line(surface, WHITE, 
                         (self.center_x, clock_y), 
                         (int(minute_x), int(minute_y)), 
                         2)
@@ -163,7 +169,7 @@ class ClockWidget(Component):
                             1)
         
         # Draw center dot
-        pygame.draw.circle(surface, (230, 230, 240), 
+        pygame.draw.circle(surface, VERY_LIGHT_GREY, 
                           (self.center_x, clock_y), 
                           4)
     
@@ -177,12 +183,12 @@ class ClockWidget(Component):
         
         # Position depends on whether we're showing analog clock
         if self.show_analog:
-            text_y = self.center_y + 40
+            text_y = self.center_y + 70
         else:
             text_y = self.center_y - 15
             
         # Draw digital time
-        text = font.render(self.time_str, True, (240, 240, 255))
+        text = font.render(self.time_str, True, LIGHT_BLUE_GRAY)
         text_rect = text.get_rect(center=(self.center_x, text_y))
         surface.blit(text, text_rect)
     
@@ -196,7 +202,7 @@ class ClockWidget(Component):
         
         # Position depends on what else is visible
         if self.show_analog and self.show_digital:
-            text_y = self.center_y + 75
+            text_y = self.center_y + 95
         elif self.show_digital:
             text_y = self.center_y + 20
         else:  # Only analog

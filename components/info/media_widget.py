@@ -1,10 +1,11 @@
 import pygame
 import json
 from core.component import Component
+from core.constants import *
 from components.platform.data_source import DataSource
 
 class MediaInfoWidget(Component):
-    def __init__(self, region, port=5005):
+    def __init__(self, region, port=MEDIA_PORT):
         """Initialize the media info widget component.
         
         Args:
@@ -73,7 +74,7 @@ class MediaInfoWidget(Component):
         
         # Background
         background_rect = pygame.Rect(10, 10, self.width - 20, self.height - 20)
-        pygame.draw.rect(surface, (40, 40, 50), background_rect, border_radius=10)
+        pygame.draw.rect(surface, CHARCOAL_1, background_rect, border_radius=10)
         
         # Media icon at top left
         icon_rect = pygame.Rect(25, 25, 30, 30)
@@ -93,7 +94,7 @@ class MediaInfoWidget(Component):
         # Media title
         title_font = pygame.font.SysFont('Arial', 22, bold=True)
         title_text = title_font.render(self._truncate_text(self.title, 18), 
-                                     True, (240, 240, 255))
+                                     True, LIGHT_BLUE_GRAY)
         surface.blit(title_text, (70, 25))
         
         # Artist and album
@@ -108,7 +109,7 @@ class MediaInfoWidget(Component):
         
         # Progress bar
         progress_bar_rect = pygame.Rect(25, 110, self.width - 50, 15)
-        pygame.draw.rect(surface, (60, 60, 70), progress_bar_rect, border_radius=3)
+        pygame.draw.rect(surface, DEEP_CHARCOAL_GREY, progress_bar_rect, border_radius=3)
         
         # Fill progress bar based on current position
         if self.duration > 0:
@@ -117,9 +118,9 @@ class MediaInfoWidget(Component):
             
             # Color based on playing status
             if self.playing:
-                fill_color = (0, 120, 255)  # Blue when playing
+                fill_color = BRIGHT_SKY_BLUE  # Blue when playing
             else:
-                fill_color = (100, 100, 120)  # Gray when paused
+                fill_color = DARK_BLUE_GRAY  # Gray when paused
                 
             pygame.draw.rect(surface, fill_color, progress_fill_rect, border_radius=3)
         
@@ -128,7 +129,7 @@ class MediaInfoWidget(Component):
         position_str = self._format_time(self.position)
         duration_str = self._format_time(self.duration)
         time_text = time_font.render(f"{position_str} / {duration_str}", 
-                                   True, (190, 190, 200))
+                                   True, LIGHT_GREY_3)
         time_rect = time_text.get_rect(center=(self.center_x, 135))
         surface.blit(time_text, time_rect)
         
@@ -140,11 +141,11 @@ class MediaInfoWidget(Component):
         prev_x = self.center_x - 60
         pygame.draw.circle(surface, (70, 70, 80), (prev_x, button_y), button_radius)
         # Previous icon (double triangle)
-        pygame.draw.polygon(surface, (220, 220, 230), 
+        pygame.draw.polygon(surface, VERY_LIGHT_GREY_2, 
                           [(prev_x - 5, button_y), 
                            (prev_x - 5, button_y - 8),
                            (prev_x - 12, button_y)])
-        pygame.draw.polygon(surface, (220, 220, 230), 
+        pygame.draw.polygon(surface, VERY_LIGHT_GREY_2, 
                           [(prev_x + 5, button_y), 
                            (prev_x + 5, button_y - 8),
                            (prev_x - 2, button_y)])
@@ -155,14 +156,14 @@ class MediaInfoWidget(Component):
         
         if self.playing:
             # Pause icon (two bars)
-            pygame.draw.rect(surface, (220, 220, 230), 
+            pygame.draw.rect(surface, VERY_LIGHT_GREY_2, 
                             (play_x - 7, button_y - 8, 5, 16))
-            pygame.draw.rect(surface, (220, 220, 230), 
+            pygame.draw.rect(surface, VERY_LIGHT_GREY_2, 
                             (play_x + 2, button_y - 8, 5, 16))
         else:
             # Play icon (triangle)
-            pygame.draw.polygon(surface, (220, 220, 230), 
-                              [(play_x - 5, button_y - 8), 
+            pygame.draw.polygon(surface, VERY_LIGHT_GREY_2,
+                              [(play_x - 5, button_y - 8),
                                (play_x - 5, button_y + 8),
                                (play_x + 8, button_y)])
         
@@ -170,11 +171,11 @@ class MediaInfoWidget(Component):
         next_x = self.center_x + 60
         pygame.draw.circle(surface, (70, 70, 80), (next_x, button_y), button_radius)
         # Next icon (double triangle)
-        pygame.draw.polygon(surface, (220, 220, 230), 
+        pygame.draw.polygon(surface, VERY_LIGHT_GREY_2, 
                           [(next_x + 5, button_y), 
                            (next_x + 5, button_y - 8),
                            (next_x + 12, button_y)])
-        pygame.draw.polygon(surface, (220, 220, 230), 
+        pygame.draw.polygon(surface, VERY_LIGHT_GREY_2,
                           [(next_x - 5, button_y), 
                            (next_x - 5, button_y - 8),
                            (next_x + 2, button_y)])
@@ -214,7 +215,7 @@ class MediaInfoWidget(Component):
             volume_width, 
             volume_height
         )
-        pygame.draw.rect(surface, (60, 60, 70), volume_bg_rect, border_radius=2)
+        pygame.draw.rect(surface, DEEP_CHARCOAL_GREY, volume_bg_rect, border_radius=2)
         
         # Volume bar fill
         volume_fill_width = int((self.volume / 100) * volume_width)
@@ -228,7 +229,7 @@ class MediaInfoWidget(Component):
         
         # Volume label
         volume_label = indicator_font.render(f"VOL: {self.volume}%", 
-                                          True, (190, 190, 200))
+                                          True, LIGHT_GREY_3)
         volume_label_rect = volume_label.get_rect(
             center=(self.center_x, volume_y + 20)
         )

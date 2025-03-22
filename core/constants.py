@@ -3,7 +3,43 @@ SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 800
 
 # Colors
-BG_COLOR = (20, 20, 30)  # Dark blue-gray background
+DARK_BLUE_GREY = (20, 20, 30)
+DARK_GREY = (50, 50, 60)
+DARK_BLUE_GRAY = (100, 100, 120)
+LIGHT_GREY_1 = (210, 210, 220)
+LIGHT_GREY_2 = (200, 200, 200)
+LIGHT_GREY_3 = (190, 190, 200)
+VERY_LIGHT_GREY = (230, 230, 240)
+VERY_LIGHT_GREY_2 = (220, 220, 230)
+LIGHT_BLUE_GRAY = (240, 240, 255)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+BRIGHT_SKY_BLUE = (0, 120, 255)
+YELLOW = (255, 255, 0)
+ORANGE = (255, 165, 0)
+PURPLE = (128, 0, 128)
+CYAN = (0, 255, 255)
+NAVY = (0, 0, 128)
+SKY_BLUE = (135, 206, 235)
+CHARCOAL_1 = (40, 40, 50)
+CHARCOAL_2 = (40, 40, 60)
+DEEP_CHARCOAL_GREY = (60, 60, 70)
+SEMI_TRANSPARENT_ORANGE = (255, 165, 0, 100)
+MEDIUM_DARK_GREY = (100, 100, 100)
+
+
+            # "info": (100, 200, 255),      # Blue
+            # "warning": (255, 180, 50),    # Orange
+            # "critical": (255, 50, 50)     # Red
+
+# Global constants
+BG_COLOR = DARK_BLUE_GREY  # Dark blue-gray background
+CLOCK_OUTLINE_COLOR = SKY_BLUE
+CLOCK_BACKGROUND_COLOR = DARK_GREY
+DIGITAL_SPEED_DATA_COLOR = YELLOW
 
 # Define the regions for each component
 regions = {
@@ -14,3 +50,10 @@ regions = {
     "media":    (SCREEN_WIDTH//3, SCREEN_HEIGHT//2, SCREEN_WIDTH//3, SCREEN_HEIGHT//2),
     "messages": (2*SCREEN_WIDTH//3, SCREEN_HEIGHT//2, SCREEN_WIDTH//3, SCREEN_HEIGHT//2)
 }
+
+RPM_PORT = 5001
+SPEED_GAUGE_PORT = 5002
+FUEL_GAUGE_PORT = 5003
+CLOCK_PORT = 5004
+MEDIA_PORT = 5005
+MESSAGES_PORT = 5006

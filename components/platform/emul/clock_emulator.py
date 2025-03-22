@@ -2,6 +2,7 @@ import time
 import json
 from datetime import datetime
 from .data_emulator_base import DataEmulatorBase
+from core.constants import *
 
 class ClockEmulator(DataEmulatorBase):
     """Emulator for clock/time data.
@@ -9,7 +10,7 @@ class ClockEmulator(DataEmulatorBase):
     Provides real-time clock data for the dashboard, with options
     for time format settings.
     """
-    def __init__(self, port=5004, update_interval=0.5):
+    def __init__(self, port=CLOCK_PORT, update_interval=0.5):
         """Initialize the clock data emulator.
         
         Args:

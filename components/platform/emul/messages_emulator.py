@@ -2,6 +2,7 @@ import random
 import json
 import time
 from .data_emulator_base import DataEmulatorBase
+from core.constants import *
 
 class MessagesEmulator(DataEmulatorBase):
     """Emulator for notification messages data.
@@ -9,7 +10,7 @@ class MessagesEmulator(DataEmulatorBase):
     Generates simulated notification messages with varying priority levels
     and auto-dismissal behavior.
     """
-    def __init__(self, port=5006, update_interval=1.0):
+    def __init__(self, port=MESSAGES_PORT, update_interval=1.0):
         """Initialize the messages data emulator.
         
         Args:

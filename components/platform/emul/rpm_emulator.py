@@ -1,5 +1,6 @@
 import random
 from .data_emulator_base import DataEmulatorBase
+from core.constants import *
 
 class RPMEmulator(DataEmulatorBase):
     """Emulator for engine RPM data.
@@ -7,7 +8,7 @@ class RPMEmulator(DataEmulatorBase):
     Generates realistic RPM values that mimic engine behavior, including
     acceleration, deceleration, and idle patterns.
     """
-    def __init__(self, port=5001, update_interval=0.05):
+    def __init__(self, port=RPM_PORT, update_interval=0.05):
         """Initialize the RPM data emulator.
         
         Args:
