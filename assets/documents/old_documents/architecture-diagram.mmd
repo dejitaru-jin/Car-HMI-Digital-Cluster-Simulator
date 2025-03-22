@@ -1,0 +1,113 @@
+classDiagram
+    Component <|-- RPMGauge
+    Component <|-- SpeedGauge
+    Component <|-- FuelGauge
+    Component <|-- ClockWidget
+    Component <|-- MediaInfoWidget
+    Component <|-- MessagesWidget
+    
+    class Component {
+        +region
+        +name
+        +width
+        +height
+        +center_x
+        +center_y
+        +data_lock
+        +socket_thread
+        +__init__(region, name)
+        +draw_component_background(surface)
+        +update()
+        +draw(surface)
+        +start_socket_listener(port)
+        -_socket_listener(port)
+        -_process_data(data)
+        +start_simulation()
+    }
+    
+    class RPMGauge {
+        +rpm
+        +max_rpm
+        +radius
+        +simulating
+        +__init__(region)
+        -_process_data(data)
+        +start_simulation()
+        +update()
+        +draw(surface)
+    }
+    
+    class SpeedGauge {
+        +speed
+        +max_speed
+        +radius
+        +simulating
+        +target_speed
+        +__init__(region)
+        -_process_data(data)
+        +start_simulation()
+        +update()
+        +draw(surface)
+    }
+    
+    class FuelGauge {
+        +fuel_level
+        +radius
+        +simulating
+        +__init__(region)
+        -_process_data(data)
+        +start_simulation()
+        +update()
+        +draw(surface)
+    }
+    
+    class ClockWidget {
+        +time
+        +use_24h
+        +simulating
+        +simulated_time
+        +__init__(region)
+        -_process_data(data)
+        +start_simulation()
+        +update()
+        +draw(surface)
+    }
+    
+    class MediaInfoWidget {
+        +track_title
+        +artist
+        +album
+        +duration
+        +position
+        +is_playing
+        +simulating
+        +songs
+        +current_song_index
+        +__init__(region)
+        -_process_data(data)
+        -_load_current_song()
+        +start_simulation()
+        +update()
+        +draw(surface)
+    }
+    
+    class MessagesWidget {
+        +messages
+        +max_messages
+        +simulating
+        +simulation_messages
+        +__init__(region)
+        -_process_data(data)
+        +add_message(message)
+        +start_simulation()
+        +update()
+        +draw(surface)
+    }
+    
+    class Main {
+        +screen
+        +clock
+        +components
+        +running
+        +main()
+    }

@@ -1,0 +1,57 @@
+@startuml
+!theme plain
+skinparam backgroundColor #FFFFFF
+
+actor User
+participant "Main Application" as Main
+participant "Emulators" as Emulators
+participant "UI Components" as Components
+participant "Pygame Display" as Pygame
+
+== Initialization ==
+
+User -> Main: Launch Application
+activate Main
+
+Main -> Pygame: Initialize pygame
+activate Pygame
+
+Main -> Main: Load configuration
+
+Main -> Emulators: Create emulators
+activate Emulators
+Main -> Emulators: Start emulator threads
+note right of Emulators: Each emulator runs on\na separate port (5001-5006)
+
+Main -> Components: Create UI components
+activate Components
+Main -> Components: Connect to data sources
+Components -> Emulators: Connect via sockets
+
+== Main Loop ==
+
+loop Until exit
+  User -> Main: Input events (keyboard/mouse)
+  Main -> Components: Update components
+  Components -> Components: Process new data
+  Main -> Pygame: Clear screen
+  Main -> Pygame: Draw grid lines
+  Main -> Components: Draw components
+  Components -> Pygame: Render to subsurfaces
+  Pygame -> User: Display updated screen
+end
+
+== Shutdown ==
+
+User -> Main: Close application
+Main -> Components: Disconnect components
+Components -> Emulators: Close connections
+Main -> Emulators: Stop emulator threads
+deactivate Emulators
+Main -> Pygame: Quit pygame
+deactivate Pygame
+Main -> User: Exit application
+deactivate Main
+deactivate Components
+
+@enduml

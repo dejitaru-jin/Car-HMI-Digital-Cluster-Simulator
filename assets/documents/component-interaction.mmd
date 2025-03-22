@@ -1,37 +1,40 @@
-graph TD
-    %% Core components
-    Main[Main Application] --- Constants[Constants]
-    Main --- Utils[Utilities]
-    Main --- CompBase[Component Base Class]
+sequenceDiagram
+    participant Main as Main Application
+    participant Component as UI Component
+    participant DataSource as Data Source
+    participant Emulator as Data Emulator
     
-    %% Component categories
-    CompBase --- Gauges[Gauge Components]
-    CompBase --- InfoWidgets[Information Widgets]
+    Main->>Emulator: 1. Start emulator thread
+    activate Emulator
+    Note over Emulator: Start socket server
     
-    %% Specific components
-    Gauges --- RPMGauge[RPM Gauge]
-    Gauges --- SpeedGauge[Speed Gauge]
-    Gauges --- FuelGauge[Fuel Gauge]
+    Main->>Component: 2. Create component
+    activate Component
     
-    InfoWidgets --- Clock[Clock Widget]
-    InfoWidgets --- Media[Media Player]
-    InfoWidgets --- Messages[Notifications]
+    Main->>Component: 3. Connect to data source
+    Component->>DataSource: 3.1. Create DataSource
+    Component->>DataSource: 3.2. Start connection
     
-    %% Data connection
-    ExternalData[External Data] -.- |Socket| RPMGauge
-    ExternalData -.- |Socket| SpeedGauge
-    ExternalData -.- |Socket| FuelGauge
-    ExternalData -.- |Socket| Clock
-    ExternalData -.- |Socket| Media
-    ExternalData -.- |Socket| Messages
+    DataSource->>Emulator: 4. Connect socket
+    Emulator-->>DataSource: 5. Accept connection
     
-    %% Style definitions to match component layout
-    classDef gaugeStyle fill:#483D8B,stroke:#7B68EE,color:white
-    classDef infoStyle fill:#2F4F4F,stroke:#5F9EA0,color:white
-    classDef coreStyle fill:#4B0082,stroke:#9370DB,color:white
-    classDef dataStyle fill:#8B0000,stroke:#CD5C5C,color:white
+    loop For each frame
+        Main->>Component: 6. Update
+        Component->>Component: 6.1. Process new data
+        Main->>Component: 7. Draw
+        Component->>Component: 7.1. Render component
+    end
     
-    class RPMGauge,SpeedGauge,FuelGauge gaugeStyle
-    class Clock,Media,Messages infoStyle
-    class Main,Constants,Utils,CompBase coreStyle
-    class ExternalData dataStyle
+    loop Data generation
+        Emulator->>Emulator: 8. Generate data
+        Emulator-->>DataSource: 9. Send data
+        DataSource-->>Component: 10. Process data callback
+    end
+    
+    Main->>Component: 11. Disconnect
+    Component->>DataSource: 11.1. Stop
+    DataSource-->>Emulator: 11.2. Close connection
+    
+    Main->>Emulator: 12. Stop emulator
+    deactivate Emulator
+    deactivate Component

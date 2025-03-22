@@ -1,0 +1,62 @@
+@startuml
+!theme plain
+skinparam linetype ortho
+skinparam backgroundColor #FFFFFF
+skinparam componentStyle rectangle
+
+package "Presentation Layer (Pygame)" {
+  [Main UI Loop] as UI
+  
+  package "Gauges" {
+    [RPM Gauge] as RPM
+    [Speed Gauge] as Speed
+    [Fuel Gauge] as Fuel
+  }
+  
+  package "Information Widgets" {
+    [Clock Widget] as Clock
+    [Media Widget] as Media
+    [Messages Widget] as Messages
+  }
+}
+
+package "Communication Layer" {
+  [RPM Data Source] as DS1
+  [Speed Data Source] as DS2
+  [Fuel Data Source] as DS3
+  [Clock Data Source] as DS4
+  [Media Data Source] as DS5
+  [Messages Data Source] as DS6
+}
+
+package "Data Layer (Emulators)" {
+  [RPM Emulator\nPort: 5001] as RPME
+  [Speed Emulator\nPort: 5002] as SpeedE
+  [Fuel Emulator\nPort: 5003] as FuelE
+  [Clock Emulator\nPort: 5004] as ClockE
+  [Media Emulator\nPort: 5005] as MediaE
+  [Messages Emulator\nPort: 5006] as MessagesE
+}
+
+UI --> RPM
+UI --> Speed
+UI --> Fuel
+UI --> Clock
+UI --> Media
+UI --> Messages
+
+RPM --> DS1
+Speed --> DS2
+Fuel --> DS3
+Clock --> DS4
+Media --> DS5
+Messages --> DS6
+
+DS1 <--> RPME : TCP Socket
+DS2 <--> SpeedE : TCP Socket
+DS3 <--> FuelE : TCP Socket
+DS4 <--> ClockE : TCP Socket
+DS5 <--> MediaE : TCP Socket
+DS6 <--> MessagesE : TCP Socket
+
+@enduml

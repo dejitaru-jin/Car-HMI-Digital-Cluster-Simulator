@@ -1,36 +1,41 @@
 flowchart TD
-    %% Data sources
-    ExtData[External Data\nvia Socket] --> |Raw data| ProcData{Process\nData}
-    SimData[Simulation\nGenerator] --> |Simulated values| ProcData
+    RPM[RPM Emulator\nPort 5001]
+    Speed[Speed Emulator\nPort 5002]
+    Fuel[Fuel Emulator\nPort 5003]
+    Clock[Clock Emulator\nPort 5004]
+    Media[Media Emulator\nPort 5005]
+    Messages[Messages Emulator\nPort 5006]
     
-    %% Component update and draw
-    ProcData --> |Set component\nproperties| CompUpdate[Component\nUpdate]
-    UserInput[User Input\nEvents] --> |Control signals| CompUpdate
-    CompUpdate --> |Updated state| CompDraw[Component\nRender]
-    CompDraw --> |Rendered output| Screen[Screen\nDisplay]
+    RPMgauge[RPM Gauge]
+    Speedgauge[Speed Gauge]
+    Fuelgauge[Fuel Gauge]
+    Clockwidget[Clock Widget]
+    Mediawidget[Media Widget]
+    Messageswidget[Messages Widget]
     
-    %% Specific component examples
-    subgraph Component Lifecycle
-        RPMData[RPM Data] --> |Set RPM value| RPMGauge[RPM Gauge\nUpdate]
-        RPMGauge --> |Draw gauge| RPMView[RPM Gauge\nRender]
-        
-        SpeedData[Speed Data] --> |Set speed value| SpeedGauge[Speed Gauge\nUpdate]
-        SpeedGauge --> |Draw gauge| SpeedView[Speed Gauge\nRender]
-        
-        TimeData[Time Data] --> |Set time| ClockUpdate[Clock Widget\nUpdate]
-        ClockUpdate --> |Draw clock| ClockView[Clock Widget\nRender]
-    end
+    UI[Main UI Loop]
+    Display[Pygame Display]
     
-    %% Event handling
-    subgraph Event Handling
-        PygameEvent[Pygame Events] --> |Process| EventHandler[Event Handler]
-        EventHandler --> |Component events| CompUpdate
-        EventHandler --> |App control| AppState[Application State]
-    end
+    RPM -->|Int value\nTCP Socket| RPMgauge
+    Speed -->|Float value\nTCP Socket| Speedgauge
+    Fuel -->|Float value\nTCP Socket| Fuelgauge
+    Clock -->|JSON\nTCP Socket| Clockwidget
+    Media -->|JSON\nTCP Socket| Mediawidget
+    Messages -->|JSON\nTCP Socket| Messageswidget
     
-    %% Simulation engine
-    subgraph Simulation Engine
-        SimTimer[Timer] --> |Trigger| SimUpdate[Simulation\nUpdater]
-        SimRandom[Random\nGenerator] --> |Randomize values| SimUpdate
-        SimUpdate --> SimData
-    end
+    RPMgauge --> UI
+    Speedgauge --> UI
+    Fuelgauge --> UI
+    Clockwidget --> UI
+    Mediawidget --> UI
+    Messageswidget --> UI
+    
+    UI -->|Render all components| Display
+    
+    classDef emulator fill:#bfb,stroke:#3f3,stroke-width:1px;
+    classDef component fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef system fill:#bbf,stroke:#33f,stroke-width:2px;
+    
+    class RPM,Speed,Fuel,Clock,Media,Messages emulator;
+    class RPMgauge,Speedgauge,Fuelgauge,Clockwidget,Mediawidget,Messageswidget component;
+    class UI,Display system;
