@@ -1,93 +1,136 @@
-# Car HMI Emulator
+# Car HMI Digital Cluster Simulator
 
-A Python-based dashboard emulator for car Human-Machine Interface (HMI) with multiple interactive components.
+A Python-based emulator for car dashboard displays and interfaces that simulates various gauges and information systems found in modern vehicles.
+
+## Layout
+
+![Dashboard Layout](assets/documents/dashboard-layout-svg.svg)
+
+## Overview
+
+This emulator creates a realistic car Human-Machine Interface (HMI) with dynamic gauges and information displays. It's designed for:
+
+- Testing dashboard UI components
+- Demonstrating vehicle interface designs
+- Learning about automotive HMI development
+- Experimenting with new dashboard layouts and features
 
 ## Features
 
-- **RPM Gauge**: Displays engine RPM with color-coded indicators
-- **Speed Gauge**: Shows current speed with smooth transitions
-- **Fuel Gauge**: Monitors fuel level with warning indicators
-- **Clock Widget**: Shows current time in both analog and digital formats
-- **Media Player**: Displays and controls music playback
-- **Notification Center**: Shows system messages with priority coding
+- **Realistic Gauges**
+  - RPM gauge with redline indication
+  - Speed gauge with digital readout
+  - Fuel gauge with low-fuel warning
 
-## Project Structure
+- **Information Displays**
+  - Real-time clock (analog and digital)
+  - Media player with track information
+  - Vehicle notifications system
 
-```
-car_hmi_emulator/
-│
-├── main.py                  # Entry point with main loop
-│
-├── core/                    # Core functionality
-│   ├── __init__.py
-│   ├── component.py         # Base Component class
-│   ├── constants.py         # Screen dimensions, colors, etc.
-│   └── utils.py             # Utility functions
-│
-├── components/              # Dashboard components
-│   ├── __init__.py
-│   ├── gauges/              # Gauge-style components
-│   │   ├── __init__.py
-│   │   ├── rpm_gauge.py
-│   │   ├── speed_gauge.py
-│   │   └── fuel_gauge.py
-│   │
-│   └── info/                # Information display components
-│       ├── __init__.py
-│       ├── clock_widget.py
-│       ├── media_widget.py
-│       └── messages_widget.py
-│
-└── assets/                  # Assets (if needed in the future)
-    ├── documents/
-    ├── fonts/
-    └── images/
-```
+- **Realistic Data Simulation**
+  - Engine behavior modeling (idle, acceleration, deceleration)
+  - Vehicle speed patterns
+  - Fuel consumption
+  - Media playback
+  - Time-based notifications
 
-## Requirements
+- **Modular Architecture**
+  - Socket-based communication between components
+  - Independent data emulators for each component
+  - Extensible component system
 
-- Python 3.6+
-- Pygame
+## Getting Started
 
-## Installation
+### Prerequisites
 
-1. Clone the repository
-2. Install dependencies:
+- Python 3.7+
+- Pygame 2.0+
+
+### Installation
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/dejitaru-jin/Car-HMI-Digital-Cluster-Simulator
+   cd car-hmi-emulator
    ```
+
+2. Install required packages:
+   ```bash
    pip install pygame
    ```
 
-## Usage
+### Running the Emulator
 
-Run the emulator:
-
-```
+Run the main application:
+```bash
 python main.py
 ```
-
-## Data Input
-
-Each component can receive data through:
-
-1. **Simulation Mode**: Auto-generates realistic data
-2. **Socket Interface**: Each component can listen on a socket for external data input
-
 ## Key Controls
 
 - **ESC**: Exit the application
 
-## Extending
+## Architecture
 
-To add new components:
+The emulator uses a client-server model where:
+- Each dashboard component (RPM gauge, speed gauge, etc.) is a client
+- Each data source runs as a server on a different port
+- Components connect to data sources via sockets
 
-1. Create a new class that inherits from `Component`
-2. Implement the required methods (`draw`, `update`)
-3. Add the component to the main loop
+This architecture allows for:
+- Independent data generation
+- Realistic simulation
+- Potential future connection to real vehicle data sources
 
-## Example images
-- Look in assets/images folder
-![Dashboard Layout](assets/images/display_2.png)
+## Project Structure
 
-## Diagrams
-- Look in assets/documents folder
-![Architecture Diagram](assets/documents/architecture-diagram.svg)
+```
+car-hmi-emulator/
+├── main.py                    # Main application entry point
+├── core/                      # Core framework components
+│   ├── component.py           # Base component class
+│   ├── constants.py           # Global constants and settings
+│   └── utils.py               # Utility functions
+├── components/                # UI components
+│   ├── gauges/                # Dashboard gauges
+│   │   ├── rpm_gauge.py       # RPM gauge component
+│   │   ├── speed_gauge.py     # Speed gauge component
+│   │   └── fuel_gauge.py      # Fuel gauge component
+│   ├── info/                  # Information widgets
+│   │   ├── clock_widget.py    # Clock display
+│   │   ├── media_widget.py    # Media player display
+│   │   └── messages_widget.py # Notifications display
+│   └── platform/              # Platform integration
+│       ├── data_source.py     # Data source connector
+│       └── emul/              # Data emulators
+│           ├── data_emulator_base.py      # Base emulator
+│           ├── rpm_emulator.py            # RPM data generator
+│           ├── speed_emulator.py          # Speed data generator
+│           ├── fuel_emulator.py           # Fuel data generator
+│           ├── clock_emulator.py          # Clock data provider
+│           ├── media_emulator.py          # Media data simulator
+│           └── messages_emulator.py       # Messages generator
+└── assets/                    # Static resources
+    ├── images/                # Image resources
+    ├── fonts/                 # Font files
+    └── documents/             # Documentation
+```
+
+## Extending the Emulator
+
+The modular architecture makes it easy to add new components:
+
+1. Create a new emulator in `components/platform/emul/`
+2. Create a corresponding UI component
+3. Add the component to the layout in `constants.py`
+4. Initialize the component in `main.py`
+
+See the existing components for examples.
+
+## License
+
+This project is licensed under the GPL 2.1 License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- The Pygame community for the excellent graphics library
+- Automotive UI designers for inspiration

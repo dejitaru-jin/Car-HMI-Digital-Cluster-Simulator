@@ -1,113 +1,52 @@
-classDiagram
-    Component <|-- RPMGauge
-    Component <|-- SpeedGauge
-    Component <|-- FuelGauge
-    Component <|-- ClockWidget
-    Component <|-- MediaInfoWidget
-    Component <|-- MessagesWidget
+flowchart TB
+    subgraph "Presentation Layer (Pygame)"
+        UI[Main UI Loop]
+        RPM[RPM Gauge]
+        Speed[Speed Gauge]
+        Fuel[Fuel Gauge]
+        Clock[Clock Widget]
+        Media[Media Widget]
+        Messages[Messages Widget]
+    end
     
-    class Component {
-        +region
-        +name
-        +width
-        +height
-        +center_x
-        +center_y
-        +data_lock
-        +socket_thread
-        +__init__(region, name)
-        +draw_component_background(surface)
-        +update()
-        +draw(surface)
-        +start_socket_listener(port)
-        -_socket_listener(port)
-        -_process_data(data)
-        +start_simulation()
-    }
+    subgraph "Communication Layer"
+        DS1[Data Source]
+        DS2[Data Source]
+        DS3[Data Source]
+        DS4[Data Source]
+        DS5[Data Source]
+        DS6[Data Source]
+    end
     
-    class RPMGauge {
-        +rpm
-        +max_rpm
-        +radius
-        +simulating
-        +__init__(region)
-        -_process_data(data)
-        +start_simulation()
-        +update()
-        +draw(surface)
-    }
+    subgraph "Data Layer (Emulators)"
+        RPME[RPM Emulator]
+        SpeedE[Speed Emulator]
+        FuelE[Fuel Emulator]
+        ClockE[Clock Emulator]
+        MediaE[Media Emulator]
+        MessagesE[Messages Emulator]
+    end
+
+    UI --> RPM & Speed & Fuel & Clock & Media & Messages
     
-    class SpeedGauge {
-        +speed
-        +max_speed
-        +radius
-        +simulating
-        +target_speed
-        +__init__(region)
-        -_process_data(data)
-        +start_simulation()
-        +update()
-        +draw(surface)
-    }
+    RPM --> DS1
+    Speed --> DS2
+    Fuel --> DS3
+    Clock --> DS4
+    Media --> DS5
+    Messages --> DS6
     
-    class FuelGauge {
-        +fuel_level
-        +radius
-        +simulating
-        +__init__(region)
-        -_process_data(data)
-        +start_simulation()
-        +update()
-        +draw(surface)
-    }
+    DS1 <-.TCP Socket.-> RPME
+    DS2 <-.TCP Socket.-> SpeedE
+    DS3 <-.TCP Socket.-> FuelE
+    DS4 <-.TCP Socket.-> ClockE
+    DS5 <-.TCP Socket.-> MediaE
+    DS6 <-.TCP Socket.-> MessagesE
     
-    class ClockWidget {
-        +time
-        +use_24h
-        +simulating
-        +simulated_time
-        +__init__(region)
-        -_process_data(data)
-        +start_simulation()
-        +update()
-        +draw(surface)
-    }
+    classDef component fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef dataSource fill:#bbf,stroke:#33f,stroke-width:1px;
+    classDef emulator fill:#bfb,stroke:#3f3,stroke-width:1px;
     
-    class MediaInfoWidget {
-        +track_title
-        +artist
-        +album
-        +duration
-        +position
-        +is_playing
-        +simulating
-        +songs
-        +current_song_index
-        +__init__(region)
-        -_process_data(data)
-        -_load_current_song()
-        +start_simulation()
-        +update()
-        +draw(surface)
-    }
-    
-    class MessagesWidget {
-        +messages
-        +max_messages
-        +simulating
-        +simulation_messages
-        +__init__(region)
-        -_process_data(data)
-        +add_message(message)
-        +start_simulation()
-        +update()
-        +draw(surface)
-    }
-    
-    class Main {
-        +screen
-        +clock
-        +components
-        +running
-        +main()
-    }
+    class RPM,Speed,Fuel,Clock,Media,Messages component;
+    class DS1,DS2,DS3,DS4,DS5,DS6 dataSource;
+    class RPME,SpeedE,FuelE,ClockE,MediaE,MessagesE emulator;

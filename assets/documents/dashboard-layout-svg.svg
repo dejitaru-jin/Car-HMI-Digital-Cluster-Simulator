@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#1a1a1e" />
+  
+  <!-- Grid Lines -->
+  <line x1="400" y1="0" x2="400" y2="800" stroke="#2a2a3a" stroke-width="2" />
+  <line x1="800" y1="0" x2="800" y2="800" stroke="#2a2a3a" stroke-width="2" />
+  <line x1="0" y1="400" x2="1200" y2="400" stroke="#2a2a3a" stroke-width="2" />
+  
+  <!-- RPM Gauge (Top Left) -->
+  <g transform="translate(200, 200)">
+    <circle cx="0" cy="0" r="140" fill="#282830" />
+    <circle cx="0" cy="0" r="140" fill="none" stroke="#3f3f5a" stroke-width="2" />
+    <text x="0" y="-160" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="20">RPM</text>
+    
+    <!-- RPM Ticks -->
+    <g>
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(0)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(30)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(60)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(90)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(120)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(150)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(180)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(210)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(240)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(270)" />
+    </g>
+    
+    <!-- RPM Labels -->
+    <text x="0" y="-125" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">0</text>
+    <text x="62" y="-108" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">1</text>
+    <text x="108" y="-62" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">2</text>
+    <text x="125" y="0" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">3</text>
+    <text x="108" y="62" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">4</text>
+    <text x="62" y="108" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">5</text>
+    <text x="0" y="125" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">6</text>
+    <text x="-62" y="108" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">7</text>
+    <text x="-108" y="62" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">8</text>
+    
+    <!-- Redline area -->
+    <path d="M -108 62 A 125 125 0 0 1 -62 108 L -56 98 A 115 115 0 0 0 -98 56 Z" fill="#aa0000" fill-opacity="0.5" />
+    
+    <!-- RPM Needle - EXPLICITLY VISIBLE -->
+    <!-- Creating a more visible needle with explicit positioning -->
+    <line x1="0" y1="0" x2="67.32" y2="-80.90" stroke="#00cc00" stroke-width="4" />
+    <!-- This corresponds to a 50-degree angle on the gauge -->
+    <!-- x = radius * cos(angle), y = radius * sin(angle) -->
+    <!-- For 50 degrees: x = 105 * cos(50°), y = 105 * sin(50°) -->
+    
+    <circle cx="0" cy="0" r="10" fill="#505060" />
+    
+    <!-- RPM Value -->
+    <text x="0" y="80" text-anchor="middle" fill="#eeeeee" font-family="Arial" font-size="24" font-weight="bold">3500 RPM</text>
+    <text x="0" y="150" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14">RPM x1000</text>
+  </g>
+  
+  <!-- Speed Gauge (Top Middle) -->
+  <g transform="translate(600, 200)">
+    <circle cx="0" cy="0" r="140" fill="#282830" />
+    <circle cx="0" cy="0" r="140" fill="none" stroke="#3f3f5a" stroke-width="2" />
+    <text x="0" y="-160" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="20">SPEED</text>
+    
+    <!-- Speed Ticks -->
+    <g>
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(0)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(30)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(60)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(90)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(120)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(150)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(180)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(210)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(240)" />
+      <line x1="0" y1="-120" x2="0" y2="-140" stroke="#aaaabb" stroke-width="2" transform="rotate(270)" />
+    </g>
+    
+    <!-- Speed Labels -->
+    <text x="0" y="-125" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">0</text>
+    <text x="62" y="-108" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">40</text>
+    <text x="108" y="-62" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">80</text>
+    <text x="125" y="0" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">120</text>
+    <text x="108" y="62" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">160</text>
+    <text x="62" y="108" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">180</text>
+    <text x="0" y="125" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">200</text>
+    <text x="-62" y="108" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14" transform="rotate(0)">220</text>
+    
+    <!-- High speed area -->
+    <path d="M 62 108 A 125 125 0 0 1 0 125 L 0 115 A 115 115 0 0 0 56 98 Z" fill="#ff8800" fill-opacity="0.5" />
+    
+    <!-- Needle - Explicit positioning -->
+    <line x1="0" y1="0" x2="50" y2="-90" stroke="#ffcc00" stroke-width="3" />
+    <circle cx="0" cy="0" r="10" fill="#505060" />
+    
+    <!-- Speed Value -->
+    <text x="0" y="80" text-anchor="middle" fill="#eeeeee" font-family="Arial" font-size="24" font-weight="bold">75 km/h</text>
+    <text x="0" y="150" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="14">SPEED</text>
+  </g>
+  
+  <!-- Fuel Gauge (Top Right) -->
+  <g transform="translate(1000, 200)">
+    <circle cx="0" cy="0" r="140" fill="#282830" />
+    <circle cx="0" cy="0" r="140" fill="none" stroke="#3f3f5a" stroke-width="2" />
+    <text x="0" y="-160" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="20">FUEL</text>
+    
+    <!-- Partial Gauge (Only 3/4 of circle) -->
+    <path d="M -120 40 A 125 125 0 0 1 0 -125 A 125 125 0 0 1 120 40" fill="none" stroke="#aaaabb" stroke-width="1" />
+    
+    <!-- Fuel Ticks -->
+    <line x1="-110" y1="37" x2="-120" y2="40" stroke="#aaaabb" stroke-width="2" />
+    <line x1="-78" y1="-85" x2="-85" y2="-93" stroke="#aaaabb" stroke-width="2" />
+    <line x1="78" y1="-85" x2="85" y2="-93" stroke="#aaaabb" stroke-width="2" />
+    <line x1="110" y1="37" x2="120" y2="40" stroke="#aaaabb" stroke-width="2" />
+    
+    <!-- E and F labels -->
+    <text x="-125" y="55" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="16">E</text>
+    <text x="0" y="-50" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="16">1/2</text>
+    <text x="125" y="55" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="16">F</text>
+    
+    <!-- Low fuel warning area -->
+    <path d="M -120 40 A 125 125 0 0 1 -100 0 L -90 0 A 115 115 0 0 0 -110 37 Z" fill="#cc0000" fill-opacity="0.5" />
+    
+    <!-- Needle - Explicit positioning -->
+    <line x1="0" y1="0" x2="60" y2="-90" stroke="#00cc00" stroke-width="3" />
+    <circle cx="0" cy="0" r="10" fill="#505060" />
+    
+    <!-- Fuel Value -->
+    <text x="0" y="80" text-anchor="middle" fill="#eeeeee" font-family="Arial" font-size="24" font-weight="bold">65% (39L)</text>
+    
+    <!-- Fuel Symbol -->
+    <g transform="translate(0, 120) scale(0.8)">
+      <rect x="-25" y="-10" width="10" height="20" fill="#ccccdd" />
+      <rect x="-15" y="-5" width="15" height="10" fill="#ccccdd" />
+      <rect x="0" y="-15" width="20" height="30" fill="#ccccdd" />
+      <text x="30" y="5" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="16">FUEL</text>
+    </g>
+  </g>
+  
+  <!-- Clock (Bottom Left) -->
+  <g transform="translate(200, 600)">
+    <rect x="-180" y="-180" width="360" height="360" rx="10" fill="#282830" />
+    <rect x="-180" y="-180" width="360" height="360" rx="10" fill="none" stroke="#3f3f5a" stroke-width="2" />
+    <text x="0" y="-150" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="20">CLOCK</text>
+    
+    <!-- Analog Clock -->
+    <circle cx="0" cy="-50" r="80" fill="#2c2c35" stroke="#3f3f5a" stroke-width="1" />
+    
+    <!-- Clock Ticks -->
+    <g transform="translate(0, -50)">
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(0)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(30)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(60)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(90)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(120)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(150)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(180)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(210)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(240)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(270)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(300)" />
+      <line x1="0" y1="-70" x2="0" y2="-80" stroke="#aaaabb" stroke-width="2" transform="rotate(330)" />
+    </g>
+    
+    <!-- Clock Hands -->
+    <g transform="translate(0, -50)">
+      <line x1="0" y1="0" x2="0" y2="-40" stroke="#eeeeee" stroke-width="4" transform="rotate(75)" />
+      <line x1="0" y1="0" x2="0" y2="-60" stroke="#eeeeee" stroke-width="2" transform="rotate(30)" />
+      <line x1="0" y1="0" x2="0" y2="-70" stroke="#dd0000" stroke-width="1" transform="rotate(260)" />
+      <circle cx="0" cy="0" r="5" fill="#dddddd" />
+    </g>
+    
+    <!-- Digital Time -->
+    <text x="0" y="70" text-anchor="middle" fill="#eeeeee" font-family="Arial" font-size="32" font-weight="bold">14:25:36</text>
+    
+    <!-- Date -->
+    <text x="0" y="110" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="20">Mar 22, 2025</text>
+  </g>
+  
+  <!-- Media Player (Bottom Middle) -->
+  <g transform="translate(600, 600)">
+    <rect x="-180" y="-180" width="360" height="360" rx="10" fill="#282830" />
+    <rect x="-180" y="-180" width="360" height="360" rx="10" fill="none" stroke="#3f3f5a" stroke-width="2" />
+    <text x="0" y="-150" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="20">MEDIA</text>
+    
+    <!-- Media Icon -->
+    <rect x="-150" y="-120" width="30" height="30" rx="5" fill="#3f3f5a" />
+    <circle cx="-135" cy="-100" r="6" fill="#aaaabb" />
+    <line x1="-135" y1="-100" x2="-135" y2="-115" stroke="#aaaabb" stroke-width="2" />
+    
+    <!-- Track Info -->
+    <text x="-110" y="-115" text-anchor="start" fill="#eeeeee" font-family="Arial" font-size="20" font-weight="bold">Bohemian Rhapsody</text>
+    <text x="-110" y="-90" text-anchor="start" fill="#aaaabb" font-family="Arial" font-size="18">Queen</text>
+    <text x="-150" y="-60" text-anchor="start" fill="#aaaabb" font-family="Arial" font-size="16">Album: A Night at the Opera</text>
+    
+    <!-- Progress Bar -->
+    <rect x="-150" y="-30" width="300" height="15" rx="3" fill="#3f3f5a" />
+    <rect x="-150" y="-30" width="150" height="15" rx="3" fill="#0066cc" />
+    
+    <!-- Time Display -->
+    <text x="0" y="0" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="16">2:05 / 5:54</text>
+    
+    <!-- Control Buttons -->
+    <circle cx="-60" cy="40" r="15" fill="#3f3f5a" />
+    <polygon points="-65,40 -55,34 -55,46" fill="#ccccdd" />
+    
+    <circle cx="0" cy="40" r="25" fill="#3f3f5a" />
+    <rect x="-7" y="30" width="5" height="20" fill="#ccccdd" />
+    <rect x="2" y="30" width="5" height="20" fill="#ccccdd" />
+    
+    <circle cx="60" cy="40" r="15" fill="#3f3f5a" />
+    <polygon points="65,40 55,34 55,46" fill="#ccccdd" />
+    
+    <!-- Shuffle and Repeat -->
+    <text x="-70" y="80" text-anchor="middle" fill="#00bb00" font-family="Arial" font-size="16">SHUFFLE</text>
+    <text x="70" y="80" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="16">REPEAT</text>
+    
+    <!-- Volume Bar -->
+    <rect x="-75" y="100" width="150" height="10" rx="2" fill="#3f3f5a" />
+    <rect x="-75" y="100" width="105" height="10" rx="2" fill="#00aa00" />
+    <text x="0" y="130" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="16">VOL: 70%</text>
+  </g>
+  
+  <!-- Messages/Notifications (Bottom Right) -->
+  <g transform="translate(1000, 600)">
+    <rect x="-180" y="-180" width="360" height="360" rx="10" fill="#282830" />
+    <rect x="-180" y="-180" width="360" height="360" rx="10" fill="none" stroke="#3f3f5a" stroke-width="2" />
+    <text x="0" y="-150" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="20">NOTIFICATIONS</text>
+    
+    <!-- Message Counts -->
+    <text x="150" y="-150" text-anchor="end" fill="#eeeeee" font-family="Arial" font-size="16">Total: 3</text>
+    <text x="-150" y="-120" text-anchor="start" fill="#88ccff" font-family="Arial" font-size="16">Info: 1</text>
+    <text x="-150" y="-95" text-anchor="start" fill="#ffaa33" font-family="Arial" font-size="16">Warning: 1</text>
+    <text x="-150" y="-70" text-anchor="start" fill="#ff3333" font-family="Arial" font-size="16">Critical: 1</text>
+    
+    <!-- Messages Area -->
+    <rect x="-165" y="-40" width="330" height="210" rx="5" fill="#1e1e28" />
+    
+    <!-- Message Items -->
+    <g transform="translate(0, -10)">
+      <rect x="-160" y="0" width="320" height="45" rx="3" fill="#331111" />
+      <rect x="-160" y="0" width="5" height="45" rx="2" fill="#ff3333" />
+      <text x="-150" y="20" text-anchor="start" fill="#eeeeee" font-family="Arial" font-size="18">ENGINE OVERHEATING</text>
+      <text x="-150" y="40" text-anchor="start" fill="#aaaabb" font-family="Arial" font-size="14">Just now</text>
+    </g>
+    
+    <g transform="translate(0, 45)">
+      <rect x="-160" y="0" width="320" height="45" rx="3" fill="#2d2d11" />
+      <rect x="-160" y="0" width="5" height="45" rx="2" fill="#ffaa33" />
+      <text x="-150" y="20" text-anchor="start" fill="#eeeeee" font-family="Arial" font-size="18">Low fuel warning: 12% remaining</text>
+      <text x="-150" y="40" text-anchor="start" fill="#aaaabb" font-family="Arial" font-size="14">2m ago</text>
+    </g>
+    
+    <g transform="translate(0, 100)">
+      <rect x="-160" y="0" width="320" height="45" rx="3" fill="#112233" />
+      <rect x="-160" y="0" width="5" height="45" rx="2" fill="#88ccff" />
+      <text x="-150" y="20" text-anchor="start" fill="#eeeeee" font-family="Arial" font-size="18">Traffic reported ahead</text>
+      <text x="-150" y="40" text-anchor="start" fill="#aaaabb" font-family="Arial" font-size="14">5m ago</text>
+    </g>
+    
+    <!-- More Messages Indicator -->
+    <text x="0" y="160" text-anchor="middle" fill="#aaaabb" font-family="Arial" font-size="16">+2 more notifications</text>
+  </g>
+</svg>

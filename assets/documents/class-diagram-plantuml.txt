@@ -1,0 +1,278 @@
+@startuml
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam classAttributeIconSize 0
+hide empty members
+
+abstract class Component {
+  +region: tuple
+  +name: string
+  +x, y, width, height: int
+  +center_x, center_y: int
+  +data_lock: Lock
+  +__init__(region, name)
+  +draw_component_background(surface)
+  +update()
+  +draw(surface)
+  +start_socket_listener(port)
+  +_socket_listener(port)
+  +_process_data(data)
+  +start_simulation()
+}
+
+class DataSource {
+  +host: string
+  +port: int
+  +reconnect_interval: float
+  +socket: Socket
+  +connected: bool
+  +running: bool
+  +thread: Thread
+  +data_callback: function
+  +__init__(host, port, reconnect_interval)
+  +set_port(port)
+  +set_data_callback(callback)
+  +connect()
+  +disconnect()
+  +start()
+  +stop()
+  +_receive_data_loop()
+  +_process_data(data)
+}
+
+abstract class DataEmulatorBase {
+  +port: int
+  +update_interval: float
+  +running: bool
+  +socket: Socket
+  +thread: Thread
+  +data_queue: Queue
+  +__init__(port, update_interval)
+  +start()
+  +stop()
+  +_run_emulation()
+  +_generate_data()
+  +get_latest_data()
+}
+
+class RPMGauge {
+  +rpm: int
+  +max_rpm: int
+  +radius: int
+  +data_source: DataSource
+  +simulating: bool
+  +rpm_emulator: RPMEmulator
+  +__init__(region, port)
+  +start_simulation()
+  +_process_data(data)
+  +connect()
+  +disconnect()
+  +update()
+  +cleanup()
+  +draw(surface)
+}
+
+class SpeedGauge {
+  +speed: float
+  +max_speed: int
+  +radius: int
+  +data_source: DataSource
+  +__init__(region, port)
+  +_process_data(data)
+  +connect()
+  +disconnect()
+  +update()
+  +draw(surface)
+}
+
+class FuelGauge {
+  +fuel_level: float
+  +tank_capacity: float
+  +radius: int
+  +data_source: DataSource
+  +__init__(region, port)
+  +_process_data(data)
+  +connect()
+  +disconnect()
+  +update()
+  +draw(surface)
+}
+
+class ClockWidget {
+  +hour, minute, second: int
+  +time_str, date_str: string
+  +show_analog, show_digital, show_date: bool
+  +radius: int
+  +data_source: DataSource
+  +__init__(region, port)
+  +_process_data(data)
+  +connect()
+  +disconnect()
+  +update()
+  +toggle_analog(), toggle_digital(), toggle_date()
+  +draw(surface)
+  +_draw_analog_clock(surface)
+  +_draw_digital_clock(surface)
+  +_draw_date(surface)
+}
+
+class MediaInfoWidget {
+  +title, artist, album: string
+  +duration, position, progress: int/float
+  +playing: bool
+  +repeat_mode: string
+  +shuffle_mode: bool
+  +volume: int
+  +data_source: DataSource
+  +__init__(region, port)
+  +_process_data(data)
+  +connect()
+  +disconnect()
+  +update()
+  +draw(surface)
+  +_truncate_text(text, max_chars)
+  +_format_time(seconds)
+}
+
+class MessagesWidget {
+  +messages: list
+  +count: dict
+  +max_visible_messages: int
+  +last_update_time: float
+  +category_colors: dict
+  +data_source: DataSource
+  +__init__(region, port)
+  +_process_data(data)
+  +connect()
+  +disconnect()
+  +update()
+  +acknowledge_message(message_id)
+  +dismiss_message(message_id)
+  +draw(surface)
+  +_draw_messages(surface, container_rect)
+  +_truncate_text(text, max_chars)
+}
+
+class RPMEmulator {
+  +rpm: int
+  +max_rpm, min_rpm: int
+  +rpm_change_probability: float
+  +acceleration_probability: float
+  +acceleration_factor: tuple
+  +deceleration_factor: tuple
+  +engine_state: string
+  +state_duration: int
+  +max_state_duration: int
+  +__init__(port, update_interval)
+  +_update_engine_state()
+  +_generate_data()
+}
+
+class SpeedEmulator {
+  +speed: float
+  +max_speed: float
+  +acceleration_rate: float
+  +deceleration_rate: float
+  +brake_rate: float
+  +target_speed: float
+  +vehicle_state: string
+  +state_duration: int
+  +max_state_duration: int
+  +__init__(port, update_interval)
+  +_update_vehicle_state()
+  +_generate_data()
+}
+
+class FuelEmulator {
+  +fuel_level: float
+  +max_fuel: float
+  +tank_capacity: float
+  +base_consumption_rate: float
+  +consumption_variance: float
+  +refill_probability: float
+  +refill_speed: float
+  +fuel_state: string
+  +speed_correlation: bool
+  +current_speed: float
+  +__init__(port, update_interval)
+  +update_speed(speed)
+  +_calculate_consumption()
+  +_generate_data()
+}
+
+class ClockEmulator {
+  +time_format: string
+  +show_seconds: bool
+  +show_date: bool
+  +date_format: string
+  +__init__(port, update_interval)
+  +set_time_format(format_str)
+  +set_show_seconds(show)
+  +set_show_date(show)
+  +set_date_format(format_str)
+  +_generate_data()
+}
+
+class MediaEmulator {
+  +tracks: list
+  +current_track_index: int
+  +playing: bool
+  +current_position: float
+  +repeat_mode: string
+  +shuffle_mode: bool
+  +volume: int
+  +start_time: float
+  +__init__(port, update_interval)
+  +play()
+  +pause()
+  +next_track()
+  +prev_track()
+  +toggle_shuffle()
+  +set_volume(volume)
+  +cycle_repeat_mode()
+  +_update_position()
+  +_generate_data()
+}
+
+class MessagesEmulator {
+  +messages: dict
+  +names: list
+  +weather_conditions: list
+  +wheels: list
+  +active_messages: list
+  +message_id_counter: int
+  +message_probabilities: dict
+  +__init__(port, update_interval)
+  +_create_message(category)
+  +add_message(category, content)
+  +dismiss_message(message_id)
+  +acknowledge_message(message_id)
+  +_update_messages()
+  +_generate_data()
+}
+
+Component <|-- RPMGauge
+Component <|-- SpeedGauge
+Component <|-- FuelGauge
+Component <|-- ClockWidget
+Component <|-- MediaInfoWidget
+Component <|-- MessagesWidget
+
+DataEmulatorBase <|-- RPMEmulator
+DataEmulatorBase <|-- SpeedEmulator
+DataEmulatorBase <|-- FuelEmulator
+DataEmulatorBase <|-- ClockEmulator
+DataEmulatorBase <|-- MediaEmulator
+DataEmulatorBase <|-- MessagesEmulator
+
+RPMGauge --> DataSource
+SpeedGauge --> DataSource
+FuelGauge --> DataSource
+ClockWidget --> DataSource
+MediaInfoWidget --> DataSource
+MessagesWidget --> DataSource
+
+RPMGauge ..> RPMEmulator : creates
+DataSource <..> DataEmulatorBase : communicates with
+
+@enduml

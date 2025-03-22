@@ -1,0 +1,50 @@
+@startuml
+!theme plain
+skinparam backgroundColor #FFFFFF
+
+participant "Main Application" as Main
+participant "UI Component" as Component
+participant "Data Source" as DataSource
+participant "Data Emulator" as Emulator
+
+activate Main
+
+Main -> Emulator: 1. Start emulator thread
+activate Emulator
+note over Emulator: Start socket server on port
+
+Main -> Component: 2. Create component
+activate Component
+
+Main -> Component: 3. Connect to data source
+Component -> DataSource: 3.1. Create DataSource
+activate DataSource
+Component -> DataSource: 3.2. Start connection
+
+DataSource -> Emulator: 4. Connect socket
+Emulator --> DataSource: 5. Accept connection
+
+loop For each frame
+  Main -> Component: 6. Update
+  Component -> Component: 6.1. Process new data (if any)
+  Main -> Component: 7. Draw
+  Component -> Component: 7.1. Render component
+end
+
+loop Data generation (separate thread)
+  Emulator -> Emulator: 8. Generate data
+  Emulator --> DataSource: 9. Send data
+  DataSource --> Component: 10. Process data callback
+end
+
+Main -> Component: 11. Disconnect
+Component -> DataSource: 11.1. Stop
+DataSource --> Emulator: 11.2. Close connection
+deactivate DataSource
+
+Main -> Emulator: 12. Stop emulator
+deactivate Emulator
+deactivate Component
+deactivate Main
+
+@enduml

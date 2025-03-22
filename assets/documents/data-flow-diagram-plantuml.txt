@@ -1,0 +1,44 @@
+@startuml
+!theme plain
+skinparam linetype ortho
+skinparam backgroundColor #FFFFFF
+skinparam componentStyle rectangle
+
+package "Data Layer" {
+  [RPM Emulator\nPort 5001] as RPM
+  [Speed Emulator\nPort 5002] as Speed
+  [Fuel Emulator\nPort 5003] as Fuel
+  [Clock Emulator\nPort 5004] as Clock
+  [Media Emulator\nPort 5005] as Media
+  [Messages Emulator\nPort 5006] as Messages
+}
+
+package "Presentation Layer" {
+  [RPM Gauge] as RPMgauge
+  [Speed Gauge] as Speedgauge
+  [Fuel Gauge] as Fuelgauge
+  [Clock Widget] as Clockwidget
+  [Media Widget] as Mediawidget
+  [Messages Widget] as Messageswidget
+  
+  [Main UI Loop] as UI
+  [Pygame Display] as Display
+}
+
+RPM -[#green]-> RPMgauge : Int value\nTCP Socket
+Speed -[#green]-> Speedgauge : Float value\nTCP Socket
+Fuel -[#green]-> Fuelgauge : Float value\nTCP Socket
+Clock -[#green]-> Clockwidget : JSON\nTCP Socket
+Media -[#green]-> Mediawidget : JSON\nTCP Socket
+Messages -[#green]-> Messageswidget : JSON\nTCP Socket
+
+RPMgauge -[#blue]-> UI
+Speedgauge -[#blue]-> UI
+Fuelgauge -[#blue]-> UI
+Clockwidget -[#blue]-> UI
+Mediawidget -[#blue]-> UI
+Messageswidget -[#blue]-> UI
+
+UI -[#red]-> Display : Render components
+
+@enduml
