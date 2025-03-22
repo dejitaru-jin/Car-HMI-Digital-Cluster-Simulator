@@ -1,5 +1,6 @@
 import random
 from .data_emulator_base import DataEmulatorBase
+from core.constants import *
 
 class SpeedEmulator(DataEmulatorBase):
     """Emulator for vehicle speed data.
@@ -7,7 +8,7 @@ class SpeedEmulator(DataEmulatorBase):
     Generates realistic speed values that mimic vehicle behavior, including
     acceleration, deceleration, cruising, and stop patterns.
     """
-    def __init__(self, port=5002, update_interval=0.1):
+    def __init__(self, port=SPEED_GAUGE_PORT, update_interval=0.1):
         """Initialize the speed data emulator.
         
         Args:

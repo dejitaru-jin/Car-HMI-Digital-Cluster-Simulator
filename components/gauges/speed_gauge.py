@@ -1,10 +1,11 @@
 import pygame
 import math
 from core.component import Component
+from core.constants import *
 from components.platform.data_source import DataSource
 
 class SpeedGauge(Component):
-    def __init__(self, region, port=5002):
+    def __init__(self, region, port=SPEED_GAUGE_PORT):
         """Initialize the speed gauge component.
         
         Args:
@@ -53,7 +54,7 @@ class SpeedGauge(Component):
         super().draw(surface)
         
         # Draw gauge background
-        pygame.draw.circle(surface, (40, 40, 50), 
+        pygame.draw.circle(surface, CHARCOAL_1, 
                           (self.center_x, self.center_y), 
                           self.radius)
         
@@ -65,7 +66,7 @@ class SpeedGauge(Component):
             start_y = self.center_y + (self.radius - 15) * math.sin(angle)
             end_x = self.center_x + (self.radius - 5) * math.cos(angle)
             end_y = self.center_y + (self.radius - 5) * math.sin(angle)
-            pygame.draw.line(surface, (200, 200, 200), 
+            pygame.draw.line(surface, LIGHT_GREY_2, 
                             (int(start_x), int(start_y)), 
                             (int(end_x), int(end_y)), 
                             2)
@@ -74,7 +75,7 @@ class SpeedGauge(Component):
             if i % 40 == 0:
                 label_x = self.center_x + (self.radius - 35) * math.cos(angle)
                 label_y = self.center_y + (self.radius - 35) * math.sin(angle)
-                label = font_small.render(str(i), True, (200, 200, 200))
+                label = font_small.render(str(i), True, LIGHT_GREY_2)
                 surface.blit(label, (int(label_x - 10), int(label_y - 10)))
         
         # Draw high-speed area (180+ km/h)
@@ -124,11 +125,11 @@ class SpeedGauge(Component):
         
         # Draw speed text
         font = pygame.font.SysFont('Arial', 24, bold=True)
-        text = font.render(f"{int(self.speed)} km/h", True, (255, 255, 255))
+        text = font.render(f"{int(self.speed)} km/h", True, WHITE)
         text_rect = text.get_rect(center=(self.center_x, self.center_y + 50))
         surface.blit(text, text_rect)
         
         # Draw "SPEED" label
-        label = font_small.render("SPEED", True, (200, 200, 200))
+        label = font_small.render("SPEED", True, LIGHT_GREY_2)
         label_rect = label.get_rect(center=(self.center_x, self.y + self.height - 30))
         surface.blit(label, label_rect)

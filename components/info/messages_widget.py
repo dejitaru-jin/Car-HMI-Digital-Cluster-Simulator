@@ -2,10 +2,11 @@ import pygame
 import json
 import time
 from core.component import Component
+from core.constants import *
 from components.platform.data_source import DataSource
 
 class MessagesWidget(Component):
-    def __init__(self, region, port=5006):
+    def __init__(self, region, port=MESSAGES_PORT):
         """Initialize the messages widget component.
         
         Args:
@@ -86,11 +87,11 @@ class MessagesWidget(Component):
         
         # Background
         background_rect = pygame.Rect(10, 10, self.width - 20, self.height - 20)
-        pygame.draw.rect(surface, (40, 40, 50), background_rect, border_radius=10)
+        pygame.draw.rect(surface, CHARCOAL_1, background_rect, border_radius=10)
         
         # Header
         header_font = pygame.font.SysFont('Arial', 22, bold=True)
-        header_text = header_font.render("Notifications", True, (240, 240, 255))
+        header_text = header_font.render("Notifications", True, LIGHT_BLUE_GRAY)
         surface.blit(header_text, (25, 20))
         
         # Count indicators
@@ -99,7 +100,7 @@ class MessagesWidget(Component):
         
         # Total count
         total_count_text = count_font.render(f"Total: {self.count['total']}", 
-                                           True, (220, 220, 230))
+                                           True, VERY_LIGHT_GREY_2)
         surface.blit(total_count_text, (self.width - 100, count_y))
         
         # Category counts
@@ -117,7 +118,7 @@ class MessagesWidget(Component):
                 count_color
             )
             surface.blit(category_count_text, 
-                         (25, 50 + i * category_spacing))
+                         (25, 45 + i * category_spacing))
         
         # Messages area
         messages_area_rect = pygame.Rect(15, 110, self.width - 30, self.height - 130)
@@ -185,7 +186,7 @@ class MessagesWidget(Component):
             else:
                 # Category-based color
                 category = message["category"]
-                r, g, b = self.category_colors.get(category, (100, 100, 120))
+                r, g, b = self.category_colors.get(category, DARK_BLUE_GRAY)
                 bg_color = (int(r * 0.3), int(g * 0.3), int(b * 0.3))
             
             pygame.draw.rect(surface, bg_color, message_rect, border_radius=3)
@@ -200,7 +201,7 @@ class MessagesWidget(Component):
             )
             pygame.draw.rect(
                 surface, 
-                self.category_colors.get(message["category"], (100, 100, 120)),
+                self.category_colors.get(message["category"], DARK_BLUE_GRAY),
                 indicator_rect, 
                 border_radius=3
             )
@@ -209,7 +210,7 @@ class MessagesWidget(Component):
             content_text = message_font.render(
                 self._truncate_text(message["content"], 40), 
                 True, 
-                (220, 220, 230)
+                VERY_LIGHT_GREY_2
             )
             surface.blit(content_text, (message_rect.x + 10, message_rect.y + 5))
             

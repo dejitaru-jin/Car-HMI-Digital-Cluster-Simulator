@@ -1,10 +1,12 @@
 import pygame
 import math
 from core.component import Component
+from core.constants import *
+
 from components.platform.data_source import DataSource
 
 class FuelGauge(Component):
-    def __init__(self, region, port=5003):
+    def __init__(self, region, port=FUEL_GAUGE_PORT):
         """Initialize the fuel gauge component.
         
         Args:
@@ -53,7 +55,7 @@ class FuelGauge(Component):
         super().draw(surface)
         
         # Draw gauge background
-        pygame.draw.circle(surface, (40, 40, 50), 
+        pygame.draw.circle(surface, CHARCOAL_1, 
                           (self.center_x, self.center_y), 
                           self.radius)
         
@@ -67,7 +69,7 @@ class FuelGauge(Component):
             start_y = self.center_y + (self.radius - 15) * math.sin(angle)
             end_x = self.center_x + (self.radius - 5) * math.cos(angle)
             end_y = self.center_y + (self.radius - 5) * math.sin(angle)
-            pygame.draw.line(surface, (200, 200, 200), 
+            pygame.draw.line(surface, LIGHT_GREY_2, 
                             (int(start_x), int(start_y)), 
                             (int(end_x), int(end_y)), 
                             2)
@@ -84,7 +86,7 @@ class FuelGauge(Component):
                 else:
                     label_text = "F"
                     
-                label = font_small.render(label_text, True, (200, 200, 200))
+                label = font_small.render(label_text, True, LIGHT_GREY_2)
                 label_rect = label.get_rect(center=(int(label_x), int(label_y)))
                 surface.blit(label, label_rect)
         
@@ -139,7 +141,7 @@ class FuelGauge(Component):
         
         # Show percentage and liters
         text = font.render(f"{int(self.fuel_level)}% ({int(liters)}L)", True, 
-                          (255, 0, 0) if self.fuel_level < 15 else (255, 255, 255))
+                          (255, 0, 0) if self.fuel_level < 15 else WHITE)
         text_rect = text.get_rect(center=(self.center_x, self.center_y + 50))
         surface.blit(text, text_rect)
         
@@ -148,16 +150,16 @@ class FuelGauge(Component):
         fuel_icon_y = self.center_y + 80
         
         # Draw pump handle
-        pygame.draw.rect(surface, (200, 200, 200), 
-                        (fuel_icon_x, fuel_icon_y, 10, 15))
-        pygame.draw.rect(surface, (200, 200, 200), 
-                        (fuel_icon_x + 10, fuel_icon_y + 5, 15, 5))
+        pygame.draw.rect(surface, VERY_LIGHT_GREY, 
+                        (fuel_icon_x-15, fuel_icon_y, 10, 15))
+        pygame.draw.rect(surface, VERY_LIGHT_GREY, 
+                        (fuel_icon_x-5, fuel_icon_y + 5, 15, 5))
         
         # Draw pump body
-        pygame.draw.rect(surface, (200, 200, 200), 
-                        (fuel_icon_x + 25, fuel_icon_y - 5, 20, 25))
+        pygame.draw.rect(surface, VERY_LIGHT_GREY, 
+                        (fuel_icon_x + 10, fuel_icon_y - 5, 20, 25))
         
         # Fuel label
-        label = font_small.render("FUEL", True, (200, 200, 200))
-        label_rect = label.get_rect(center=(self.center_x + 25, self.center_y + 80))
+        label = font_small.render("FUEL", True, LIGHT_GREY_2)
+        label_rect = label.get_rect(center=(self.center_x + 25, self.center_y + 85))
         surface.blit(label, label_rect)

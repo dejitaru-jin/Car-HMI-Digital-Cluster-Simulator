@@ -1,6 +1,7 @@
 import pygame
 import threading
 import socket
+from core.constants import *
 
 # Base Component class
 class Component:
@@ -22,7 +23,7 @@ class Component:
         # Draw component background with border
         pygame.draw.rect(surface, (30, 30, 40), 
                         (0, 0, self.width, self.height))
-        pygame.draw.rect(surface, (100, 100, 120), 
+        pygame.draw.rect(surface, DARK_BLUE_GRAY, 
                         (0, 0, self.width, self.height), 2)
         
         # Draw component title
@@ -80,4 +81,7 @@ class Component:
     def start_simulation(self):
         # Override in subclasses
         pass
-    
+
+    def send_key(self, key):
+        # Override in subclasses if needed
+        pass

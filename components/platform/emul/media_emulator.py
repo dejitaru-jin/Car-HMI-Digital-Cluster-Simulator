@@ -2,6 +2,7 @@ import random
 import json
 import time
 from .data_emulator_base import DataEmulatorBase
+from core.constants import *
 
 class MediaEmulator(DataEmulatorBase):
     """Emulator for media player data.
@@ -9,7 +10,7 @@ class MediaEmulator(DataEmulatorBase):
     Generates simulated music player information including track info,
     playback status, and progress.
     """
-    def __init__(self, port=5005, update_interval=0.5):
+    def __init__(self, port=MEDIA_PORT, update_interval=0.5):
         """Initialize the media data emulator.
         
         Args:
